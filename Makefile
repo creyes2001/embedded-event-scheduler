@@ -3,7 +3,7 @@ MDFP ="/opt/microchip/mplabx/v6.25/packs/Microchip/PIC18Fxxxx_DFP/1.7.171/xc8"
 BUILD_DIR = build
 OBJ_DIR = $(BUILD_DIR)/obj
 BIN_DIR = $(BUILD_DIR)/bin
-INCLUDE_DIRS = inc app
+INCLUDE_DIRS = inc 
 
 #===========TOOLACHAIN=====================
 CC = xc8-cc
@@ -13,6 +13,7 @@ RM = rm
 TARGET = $(BIN_DIR)/button_event
     
 SOURCES = main.c\
+		  src/gpio_driver.c
 
 		 
            

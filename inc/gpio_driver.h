@@ -4,10 +4,10 @@
 #include <stdint.h>
 
 typedef struct{
-	volatile uint8_t *port,
-	volatile uint8_t *tris,
-	volatile uint8_t *lat,
-	uint8_t pin
+	volatile uint8_t *port;
+	volatile uint8_t *tris;
+	volatile uint8_t *lat;
+	uint8_t pin;
 }gpio_t;
 
 typedef enum{
