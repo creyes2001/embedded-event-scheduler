@@ -13,7 +13,8 @@ RM = rm
 TARGET = $(BIN_DIR)/button_event
     
 SOURCES = main.c\
-		  src/gpio_driver.c
+		  src/gpio_driver.c\
+		  src/led_driver.c
 
 		 
            

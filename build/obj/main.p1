@@ -14,25 +14,35 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _TRISB `Vuc ~T0 @X0 0 e@3987 ]
 "3071
 [v _LATB `Vuc ~T0 @X0 0 e@3978 ]
+"35 main.c
+[c E3367 0 1 .. ]
+[n E3367 . ACTIVE_LOW ACTIVE_HIGH  ]
+[c E3371 0 1 .. ]
+[n E3371 . LED_OFF LED_ON  ]
+"16 inc/led_driver.h
+[s S392 `*S391 1 `E3367 1 `E3371 1 ]
+[n S392 . gpio polarity state ]
 [p mainexit ]
-"30 main.c
+"22
+[v _led_init `(v ~T0 @X0 0 ef1`*S392 ]
+"55 main.c
 [c E3349 0 1 .. ]
 [n E3349 . GPIO_OUTPUT GPIO_INPUT  ]
 "23 inc/gpio_driver.h
 [v _gpio_init `(v ~T0 @X0 0 ef2`*S391`E3349 ]
-"26
-[v _gpio_toggle `(v ~T0 @X0 0 ef1`*S391 ]
+"24 inc/led_driver.h
+[v _led_toggle `(v ~T0 @X0 0 ef1`*S392 ]
 [v F205 `(v ~T0 @X0 1 tf1`ul ]
 "20 /opt/microchip/xc8/v3.10/pic/include/builtins.h
 [v __delay `JF205 ~T0 @X0 0 e ]
 [p i __delay ]
-"38 main.c
+"62 main.c
 [c E3353 0 1 .. ]
 [n E3353 . GPIO_LOW GPIO_HIGH  ]
 "25 inc/gpio_driver.h
 [v _gpio_read `(E3353 ~T0 @X0 0 ef1`*S391 ]
-"24
-[v _gpio_write `(v ~T0 @X0 0 ef2`*S391`E3353 ]
+"23 inc/led_driver.h
+[v _led_set `(v ~T0 @X0 0 ef2`*S392`E3371 ]
 "3 inc/config.h
 [p x PLLDIV  =  1        ]
 "4
@@ -405,9 +415,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; <" TOSH equ 0FFEh ;# ">
 "8891
 [; <" TOSU equ 0FFFh ;# ">
-"6 main.c
-[v _led `S391 ~T0 @X0 1 e ]
-[i _led
+"7 main.c
+[v _gpio_led0 `S391 ~T0 @X0 1 e ]
+[i _gpio_led0
 :U ..
 :U ..
 &U _PORTD
@@ -417,9 +427,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-"13
-[v _led1 `S391 ~T0 @X0 1 e ]
-[i _led1
+"14
+[v _gpio_led1 `S391 ~T0 @X0 1 e ]
+[i _gpio_led1
 :U ..
 :U ..
 &U _PORTD
@@ -429,7 +439,19 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-"20
+"21
+[v _gpio_led2 `S391 ~T0 @X0 1 e ]
+[i _gpio_led2
+:U ..
+:U ..
+&U _PORTD
+&U _TRISD
+&U _LATD
+-> -> 2 `i `uc
+..
+..
+]
+"28
 [v _button `S391 ~T0 @X0 1 e ]
 [i _button
 :U ..
@@ -441,53 +463,89 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
+"35
+[v _led0 `S392 ~T0 @X0 1 e ]
+[i _led0
+:U ..
+:U ..
+&U _gpio_led0
+. `E3367 1
+..
+..
+]
+"40
+[v _led1 `S392 ~T0 @X0 1 e ]
+[i _led1
+:U ..
+:U ..
+&U _gpio_led1
+. `E3367 0
+..
+..
+]
+"45
+[v _led2 `S392 ~T0 @X0 1 e ]
+[i _led2
+:U ..
+:U ..
+&U _gpio_led2
+. `E3367 1
+..
+..
+]
 [v $root$_main `(v ~T0 @X0 0 e ]
-"28
+"50
 [v _main `(i ~T0 @X0 1 ef ]
-"29
+"51
 {
 [e :U _main ]
 [f ]
-"30
-[e ( _gpio_init (2 , &U _led . `E3349 0 ]
-"31
-[e ( _gpio_init (2 , &U _led1 . `E3349 0 ]
-"32
+"52
+[e ( _led_init (1 &U _led0 ]
+"53
+[e ( _led_init (1 &U _led1 ]
+"54
+[e ( _led_init (1 &U _led2 ]
+"55
 [e ( _gpio_init (2 , &U _button . `E3349 1 ]
-"33
-[e :U 394 ]
-"34
-{
-"35
-[e ( _gpio_toggle (1 &U _led ]
-"36
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 20000000 `l `d .4000.0 `ul ]
-"38
-[e $ ! == -> ( _gpio_read (1 &U _button `ui -> . `E3353 1 `ui 396  ]
-"39
-{
-"40
-[e ( _gpio_write (2 , &U _led1 . `E3353 1 ]
-"41
-}
-[e $U 397  ]
-"42
-[e :U 396 ]
-"43
-{
-"44
-[e ( _gpio_write (2 , &U _led1 . `E3353 0 ]
-"45
-}
-[e :U 397 ]
-"47
-}
-[e :U 393 ]
-[e $U 394  ]
+"56
 [e :U 395 ]
-"48
+"57
+{
+"58
+[e ( _led_toggle (1 &U _led0 ]
+"59
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 20000000 `l `d .4000.0 `ul ]
+"60
+[e ( _led_toggle (1 &U _led1 ]
+"61
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 20000000 `l `d .4000.0 `ul ]
+"62
+[e $ ! == -> ( _gpio_read (1 &U _button `ui -> . `E3353 0 `ui 397  ]
+"63
+{
+"64
+[e ( _led_set (2 , &U _led2 . `E3371 0 ]
+"65
+}
+[e $U 398  ]
+"66
+[e :U 397 ]
+"67
+{
+"68
+[e ( _led_set (2 , &U _led2 . `E3371 1 ]
+"69
+}
+[e :U 398 ]
+"70
+}
+[e :U 394 ]
+[e $U 395  ]
+[e :U 396 ]
+"71
 [e ) -> 1 `i ]
-[e $UE 392  ]
-"49
-[e :UE 392 ]
+[e $UE 393  ]
+"72
+[e :UE 393 ]
 }

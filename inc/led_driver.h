@@ -16,6 +16,7 @@ typedef enum{
 typedef struct{
 	gpio_t *gpio;
 	led_polarity_e polarity;
+	led_state_e  state;
 }led_t;
 
 void led_init(led_t *led);

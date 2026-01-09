@@ -799,17 +799,26 @@ TOSU equ 0FFFh ;#
 	debug_source C
 	FNCALL	_main,_gpio_init
 	FNCALL	_main,_gpio_read
-	FNCALL	_main,_gpio_toggle
-	FNCALL	_main,_gpio_write
+	FNCALL	_main,_led_init
+	FNCALL	_main,_led_set
+	FNCALL	_main,_led_toggle
+	FNCALL	_led_toggle,_led_set
+	FNCALL	_led_init,_gpio_init
+	FNCALL	_led_init,_led_set
+	FNCALL	_led_set,_gpio_write
 	FNROOT	_main
 	global	_button
+	global	_gpio_led2
+	global	_gpio_led1
+	global	_gpio_led0
+	global	_led2
 	global	_led1
-	global	_led
+	global	_led0
 psect	idataCOMRAM,class=CODE,space=0,delta=1,noexec
 global __pidataCOMRAM
 __pidataCOMRAM:
 	file	"main.c"
-	line	20
+	line	28
 
 ;initializer for _button
 		db	low(3969)
@@ -822,9 +831,22 @@ __pidataCOMRAM:
 	db	high(3978)
 
 	db	low(0)
-	line	13
+	line	21
 
-;initializer for _led1
+;initializer for _gpio_led2
+		db	low(3971)
+	db	high(3971)
+
+		db	low(3989)
+	db	high(3989)
+
+		db	low(3980)
+	db	high(3980)
+
+	db	low(02h)
+	line	14
+
+;initializer for _gpio_led1
 		db	low(3971)
 	db	high(3971)
 
@@ -835,9 +857,9 @@ __pidataCOMRAM:
 	db	high(3980)
 
 	db	low(01h)
-	line	6
+	line	7
 
-;initializer for _led
+;initializer for _gpio_led0
 		db	low(3971)
 	db	high(3971)
 
@@ -848,6 +870,27 @@ __pidataCOMRAM:
 	db	high(3980)
 
 	db	low(0)
+	line	45
+
+;initializer for _led2
+		db	low(_gpio_led2)
+
+	db	low(01h)
+	db   0
+	line	40
+
+;initializer for _led1
+		db	low(_gpio_led1)
+
+	db	low(0)
+	db   0
+	line	35
+
+;initializer for _led0
+		db	low(_gpio_led0)
+
+	db	low(01h)
+	db   0
 	global	_LATB
 _LATB	set	0xF8A
 	global	_TRISB
@@ -896,26 +939,50 @@ psect	dataCOMRAM,class=COMRAM,space=1,noexec,lowdata
 global __pdataCOMRAM
 __pdataCOMRAM:
 	file	"main.c"
-	line	20
+	line	28
 	global	_button
 _button:
        ds      7
 psect	dataCOMRAM
 	file	"main.c"
-	line	13
-	global	_led1
-_led1:
+	line	21
+	global	_gpio_led2
+_gpio_led2:
        ds      7
 psect	dataCOMRAM
 	file	"main.c"
-	line	6
-	global	_led
-_led:
+	line	14
+	global	_gpio_led1
+_gpio_led1:
        ds      7
+psect	dataCOMRAM
+	file	"main.c"
+	line	7
+	global	_gpio_led0
+_gpio_led0:
+       ds      7
+psect	dataCOMRAM
+	file	"main.c"
+	line	45
+	global	_led2
+_led2:
+       ds      3
+psect	dataCOMRAM
+	file	"main.c"
+	line	40
+	global	_led1
+_led1:
+       ds      3
+psect	dataCOMRAM
+	file	"main.c"
+	line	35
+	global	_led0
+_led0:
+       ds      3
 	file	"build/bin/button_event.s"
 	line	#
 psect	cinit
-; Initialize objects allocated to COMRAM (21 bytes)
+; Initialize objects allocated to COMRAM (37 bytes)
 	global __pidataCOMRAM
 	; load TBLPTR registers with __pidataCOMRAM
 	movlw	low (__pidataCOMRAM)
@@ -925,7 +992,7 @@ psect	cinit
 	movlw	low highword(__pidataCOMRAM)
 	movwf	tblptru
 	lfsr	0,__pdataCOMRAM
-	lfsr	1,21
+	lfsr	1,37
 	copy_data0:
 	tblrd	*+
 	movff	tablat, postinc0
@@ -945,7 +1012,6 @@ psect	cstackCOMRAM,class=COMRAM,space=1,noexec,lowdata
 global __pcstackCOMRAM
 __pcstackCOMRAM:
 ?_gpio_init:	; 1 bytes @ 0x0
-?_gpio_toggle:	; 1 bytes @ 0x0
 ?_gpio_read:	; 1 bytes @ 0x0
 ?_gpio_write:	; 1 bytes @ 0x0
 ?_main:	; 2 bytes @ 0x0
@@ -955,33 +1021,54 @@ gpio_init@gpio:	; 1 bytes @ 0x0
 gpio_write@gpio:	; 1 bytes @ 0x0
 	global	gpio_read@gpio
 gpio_read@gpio:	; 1 bytes @ 0x0
-	global	gpio_toggle@gpio
-gpio_toggle@gpio:	; 1 bytes @ 0x0
 	ds   1
 	global	gpio_init@dir
 gpio_init@dir:	; 1 bytes @ 0x1
 	global	gpio_write@level
 gpio_write@level:	; 1 bytes @ 0x1
-??_gpio_toggle:	; 1 bytes @ 0x1
 ??_gpio_read:	; 1 bytes @ 0x1
 	ds   1
 ??_gpio_init:	; 1 bytes @ 0x2
 ??_gpio_write:	; 1 bytes @ 0x2
 	ds   5
-??_main:	; 1 bytes @ 0x7
+?_led_set:	; 1 bytes @ 0x7
+	global	led_set@led
+led_set@led:	; 1 bytes @ 0x7
+	ds   1
+	global	led_set@state
+led_set@state:	; 1 bytes @ 0x8
+	ds   1
+??_led_set:	; 1 bytes @ 0x9
+	ds   1
+	global	led_set@gpio_level
+led_set@gpio_level:	; 1 bytes @ 0xA
+	ds   1
+?_led_init:	; 1 bytes @ 0xB
+?_led_toggle:	; 1 bytes @ 0xB
+	global	led_init@led
+led_init@led:	; 1 bytes @ 0xB
+	global	led_toggle@led
+led_toggle@led:	; 1 bytes @ 0xB
+	ds   1
+	global	led_toggle@state
+led_toggle@state:	; 1 bytes @ 0xC
+??_led_init:	; 1 bytes @ 0xC
+??_led_toggle:	; 1 bytes @ 0xC
+	ds   1
+??_main:	; 1 bytes @ 0xD
 	ds   2
 ;!
 ;!Data Sizes:
 ;!    Strings     0
 ;!    Constant    0
-;!    Data        21
+;!    Data        37
 ;!    BSS         0
 ;!    Persistent  0
 ;!    Stack       0
 ;!
 ;!Auto Spaces:
 ;!    Space          Size  Autos    Used
-;!    COMRAM           95      9      30
+;!    COMRAM           95     15      52
 ;!    BANK0           160      0       0
 ;!    BANK1           256      0       0
 ;!    BANK2           256      0       0
@@ -1004,7 +1091,7 @@ gpio_write@level:	; 1 bytes @ 0x1
 ;!		 -> TRISB(BIGSFR[1]), TRISD(BIGSFR[1]), 
 ;!
 ;!    gpio_init@gpio	PTR struct . size(1) Largest target is 7
-;!		 -> button(COMRAM[7]), led(COMRAM[7]), led1(COMRAM[7]), 
+;!		 -> button(COMRAM[7]), gpio_led0(COMRAM[7]), gpio_led1(COMRAM[7]), gpio_led2(COMRAM[7]), 
 ;!
 ;!    gpio_init@gpio$lat	PTR volatile unsigned char  size(2) Largest target is 1
 ;!		 -> LATB(BIGSFR[1]), LATD(BIGSFR[1]), 
@@ -1013,6 +1100,33 @@ gpio_write@level:	; 1 bytes @ 0x1
 ;!		 -> PORTB(BIGSFR[1]), PORTD(BIGSFR[1]), 
 ;!
 ;!    gpio_init@gpio$tris	PTR volatile unsigned char  size(2) Largest target is 1
+;!		 -> TRISB(BIGSFR[1]), TRISD(BIGSFR[1]), 
+;!
+;!    gpio_led0$lat	PTR volatile unsigned char  size(2) Largest target is 1
+;!		 -> LATB(BIGSFR[1]), LATD(BIGSFR[1]), 
+;!
+;!    gpio_led0$port	PTR volatile unsigned char  size(2) Largest target is 1
+;!		 -> PORTB(BIGSFR[1]), PORTD(BIGSFR[1]), 
+;!
+;!    gpio_led0$tris	PTR volatile unsigned char  size(2) Largest target is 1
+;!		 -> TRISB(BIGSFR[1]), TRISD(BIGSFR[1]), 
+;!
+;!    gpio_led1$lat	PTR volatile unsigned char  size(2) Largest target is 1
+;!		 -> LATB(BIGSFR[1]), LATD(BIGSFR[1]), 
+;!
+;!    gpio_led1$port	PTR volatile unsigned char  size(2) Largest target is 1
+;!		 -> PORTB(BIGSFR[1]), PORTD(BIGSFR[1]), 
+;!
+;!    gpio_led1$tris	PTR volatile unsigned char  size(2) Largest target is 1
+;!		 -> TRISB(BIGSFR[1]), TRISD(BIGSFR[1]), 
+;!
+;!    gpio_led2$lat	PTR volatile unsigned char  size(2) Largest target is 1
+;!		 -> LATB(BIGSFR[1]), LATD(BIGSFR[1]), 
+;!
+;!    gpio_led2$port	PTR volatile unsigned char  size(2) Largest target is 1
+;!		 -> PORTB(BIGSFR[1]), PORTD(BIGSFR[1]), 
+;!
+;!    gpio_led2$tris	PTR volatile unsigned char  size(2) Largest target is 1
 ;!		 -> TRISB(BIGSFR[1]), TRISD(BIGSFR[1]), 
 ;!
 ;!    gpio_read@gpio	PTR struct . size(1) Largest target is 7
@@ -1027,9 +1141,6 @@ gpio_write@level:	; 1 bytes @ 0x1
 ;!    gpio_read@gpio$tris	PTR volatile unsigned char  size(2) Largest target is 1
 ;!		 -> TRISB(BIGSFR[1]), TRISD(BIGSFR[1]), 
 ;!
-;!    gpio_toggle@gpio	PTR struct . size(1) Largest target is 7
-;!		 -> led(COMRAM[7]), 
-;!
 ;!    gpio_toggle@gpio$lat	PTR volatile unsigned char  size(2) Largest target is 1
 ;!		 -> LATB(BIGSFR[1]), LATD(BIGSFR[1]), 
 ;!
@@ -1040,7 +1151,7 @@ gpio_write@level:	; 1 bytes @ 0x1
 ;!		 -> TRISB(BIGSFR[1]), TRISD(BIGSFR[1]), 
 ;!
 ;!    gpio_write@gpio	PTR struct . size(1) Largest target is 7
-;!		 -> led1(COMRAM[7]), 
+;!		 -> gpio_led0(COMRAM[7]), gpio_led1(COMRAM[7]), gpio_led2(COMRAM[7]), 
 ;!
 ;!    gpio_write@gpio$lat	PTR volatile unsigned char  size(2) Largest target is 1
 ;!		 -> LATB(BIGSFR[1]), LATD(BIGSFR[1]), 
@@ -1051,23 +1162,32 @@ gpio_write@level:	; 1 bytes @ 0x1
 ;!    gpio_write@gpio$tris	PTR volatile unsigned char  size(2) Largest target is 1
 ;!		 -> TRISB(BIGSFR[1]), TRISD(BIGSFR[1]), 
 ;!
-;!    led$lat	PTR volatile unsigned char  size(2) Largest target is 1
-;!		 -> LATB(BIGSFR[1]), LATD(BIGSFR[1]), 
+;!    led0$gpio	PTR struct . size(1) Largest target is 7
+;!		 -> gpio_led0(COMRAM[7]), gpio_led1(COMRAM[7]), gpio_led2(COMRAM[7]), 
 ;!
-;!    led$port	PTR volatile unsigned char  size(2) Largest target is 1
-;!		 -> PORTB(BIGSFR[1]), PORTD(BIGSFR[1]), 
+;!    led1$gpio	PTR struct . size(1) Largest target is 7
+;!		 -> gpio_led0(COMRAM[7]), gpio_led1(COMRAM[7]), gpio_led2(COMRAM[7]), 
 ;!
-;!    led$tris	PTR volatile unsigned char  size(2) Largest target is 1
-;!		 -> TRISB(BIGSFR[1]), TRISD(BIGSFR[1]), 
+;!    led2$gpio	PTR struct . size(1) Largest target is 7
+;!		 -> gpio_led0(COMRAM[7]), gpio_led1(COMRAM[7]), gpio_led2(COMRAM[7]), 
 ;!
-;!    led1$lat	PTR volatile unsigned char  size(2) Largest target is 1
-;!		 -> LATB(BIGSFR[1]), LATD(BIGSFR[1]), 
+;!    led_init@led	PTR struct . size(1) Largest target is 4
+;!		 -> led0(COMRAM[3]), led1(COMRAM[3]), led2(COMRAM[3]), 
 ;!
-;!    led1$port	PTR volatile unsigned char  size(2) Largest target is 1
-;!		 -> PORTB(BIGSFR[1]), PORTD(BIGSFR[1]), 
+;!    led_init@led$gpio	PTR struct . size(1) Largest target is 7
+;!		 -> gpio_led0(COMRAM[7]), gpio_led1(COMRAM[7]), gpio_led2(COMRAM[7]), 
 ;!
-;!    led1$tris	PTR volatile unsigned char  size(2) Largest target is 1
-;!		 -> TRISB(BIGSFR[1]), TRISD(BIGSFR[1]), 
+;!    led_set@led	PTR struct . size(1) Largest target is 4
+;!		 -> led0(COMRAM[3]), led1(COMRAM[3]), led2(COMRAM[3]), 
+;!
+;!    led_set@led$gpio	PTR struct . size(1) Largest target is 7
+;!		 -> gpio_led0(COMRAM[7]), gpio_led1(COMRAM[7]), gpio_led2(COMRAM[7]), 
+;!
+;!    led_toggle@led	PTR struct . size(1) Largest target is 4
+;!		 -> led0(COMRAM[3]), led1(COMRAM[3]), 
+;!
+;!    led_toggle@led$gpio	PTR struct . size(1) Largest target is 7
+;!		 -> gpio_led0(COMRAM[7]), gpio_led1(COMRAM[7]), gpio_led2(COMRAM[7]), 
 ;!
 ;!    S24$lat	PTR volatile unsigned char  size(2) Largest target is 1
 ;!		 -> LATB(BIGSFR[1]), LATD(BIGSFR[1]), 
@@ -1078,13 +1198,18 @@ gpio_write@level:	; 1 bytes @ 0x1
 ;!    S24$tris	PTR volatile unsigned char  size(2) Largest target is 1
 ;!		 -> TRISB(BIGSFR[1]), TRISD(BIGSFR[1]), 
 ;!
+;!    S41$gpio	PTR struct . size(1) Largest target is 7
+;!		 -> gpio_led0(COMRAM[7]), gpio_led1(COMRAM[7]), gpio_led2(COMRAM[7]), 
+;!
 
 
 ;!
 ;!Critical Paths under _main in COMRAM
 ;!
-;!    _main->_gpio_init
-;!    _main->_gpio_write
+;!    _main->_led_toggle
+;!    _led_toggle->_led_set
+;!    _led_init->_led_set
+;!    _led_set->_gpio_write
 ;!
 ;!Critical Paths under _main in BANK0
 ;!
@@ -1128,26 +1253,37 @@ gpio_write@level:	; 1 bytes @ 0x1
 ;! ---------------------------------------------------------------------------------
 ;! (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
 ;! ---------------------------------------------------------------------------------
-;! (0) _main                                                 2     2      0     320
-;!                                              7 COMRAM     2     2      0
+;! (0) _main                                                 2     2      0    1285
+;!                                             13 COMRAM     2     2      0
 ;!                          _gpio_init
 ;!                          _gpio_read
-;!                        _gpio_toggle
+;!                           _led_init
+;!                            _led_set
+;!                         _led_toggle
+;! ---------------------------------------------------------------------------------
+;! (1) _led_toggle                                           2     1      1     369
+;!                                             11 COMRAM     2     1      1
+;!                            _led_set
+;! ---------------------------------------------------------------------------------
+;! (1) _led_init                                             1     0      1     481
+;!                                             11 COMRAM     1     0      1
+;!                          _gpio_init
+;!                            _led_set
+;! ---------------------------------------------------------------------------------
+;! (2) _led_set                                              4     2      2     276
+;!                                              7 COMRAM     4     2      2
 ;!                         _gpio_write
 ;! ---------------------------------------------------------------------------------
-;! (1) _gpio_write                                           7     5      2     114
+;! (3) _gpio_write                                           7     5      2     112
 ;!                                              0 COMRAM     7     5      2
 ;! ---------------------------------------------------------------------------------
-;! (1) _gpio_toggle                                          5     4      1      45
-;!                                              0 COMRAM     5     4      1
+;! (2) _gpio_init                                            7     5      2     114
+;!                                              0 COMRAM     7     5      2
 ;! ---------------------------------------------------------------------------------
 ;! (1) _gpio_read                                            6     5      1      45
 ;!                                              0 COMRAM     6     5      1
 ;! ---------------------------------------------------------------------------------
-;! (1) _gpio_init                                            7     5      2     116
-;!                                              0 COMRAM     7     5      2
-;! ---------------------------------------------------------------------------------
-;! Estimated maximum stack depth 1
+;! Estimated maximum stack depth 3
 ;! ---------------------------------------------------------------------------------
 ;!
 ;! Call Graph Graphs:
@@ -1155,8 +1291,13 @@ gpio_write@level:	; 1 bytes @ 0x1
 ;! _main (ROOT)
 ;!   _gpio_init
 ;!   _gpio_read
-;!   _gpio_toggle
-;!   _gpio_write
+;!   _led_init
+;!     _gpio_init
+;!     _led_set
+;!       _gpio_write
+;!   _led_set
+;!   _led_toggle
+;!     _led_set
 ;!
 
 ;!Address spaces:
@@ -1181,22 +1322,22 @@ gpio_write@level:	; 1 bytes @ 0x1
 ;!BANK0              160      0       0      0.0%
 ;!BITBIGSFRh         126      0       0      0.0%
 ;!BITCOMRAM           95      0       0      0.0%
-;!COMRAM              95      9      30     31.6%
+;!COMRAM              95     15      52     54.7%
 ;!BITBIGSFRl          33      0       0      0.0%
 ;!STACK                0      0       0      0.0%
-;!DATA                 0      0      30      0.0%
+;!DATA                 0      0      52      0.0%
 
 	global	_main
 
 ;; *************** function _main *****************
 ;; Defined at:
-;;		line 28 in file "main.c"
+;;		line 50 in file "main.c"
 ;; Parameters:    Size  Location     Type
 ;;		None
 ;; Auto vars:     Size  Location     Type
 ;;		None
 ;; Return value:  Size  Location     Type
-;;                  2   32[None  ] int 
+;;                  2   42[None  ] int 
 ;; Registers used:
 ;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
 ;; Tracked objects:
@@ -1209,62 +1350,64 @@ gpio_write@level:	; 1 bytes @ 0x1
 ;;      Temps:          2       0       0       0       0       0       0       0       0
 ;;      Totals:         2       0       0       0       0       0       0       0       0
 ;;Total ram usage:        2 bytes
-;; Hardware stack levels required when called: 1
+;; Hardware stack levels required when called: 3
 ;; This function calls:
 ;;		_gpio_init
 ;;		_gpio_read
-;;		_gpio_toggle
-;;		_gpio_write
+;;		_led_init
+;;		_led_set
+;;		_led_toggle
 ;; This function is called by:
 ;;		Startup code after reset
 ;; This function uses a non-reentrant model
 ;;
 psect	text0,class=CODE,space=0,reloc=2,group=0
 	file	"main.c"
-	line	28
+	line	50
 global __ptext0
 __ptext0:
 psect	text0
 	file	"main.c"
-	line	28
+	line	50
 	
 _main:
 ;incstack = 0
-	callstack 30
-	line	30
+	callstack 28
+	line	52
 	
-l899:
-		movlw	low(_led)
-	movwf	((c:gpio_init@gpio))^00h,c
+l976:
+		movlw	low(_led0)
+	movwf	((c:led_init@led))^00h,c
 
-	movlw	low(0)
-	movwf	((c:gpio_init@dir))^00h,c
-	call	_gpio_init	;wreg free
-	line	31
+	call	_led_init	;wreg free
+	line	53
 		movlw	low(_led1)
-	movwf	((c:gpio_init@gpio))^00h,c
+	movwf	((c:led_init@led))^00h,c
 
-	movlw	low(0)
-	movwf	((c:gpio_init@dir))^00h,c
-	call	_gpio_init	;wreg free
-	line	32
+	call	_led_init	;wreg free
+	line	54
+		movlw	low(_led2)
+	movwf	((c:led_init@led))^00h,c
+
+	call	_led_init	;wreg free
+	line	55
 		movlw	low(_button)
 	movwf	((c:gpio_init@gpio))^00h,c
 
 	movlw	low(01h)
 	movwf	((c:gpio_init@dir))^00h,c
 	call	_gpio_init	;wreg free
-	line	33
+	line	56
 	
-l33:
-	line	35
-		movlw	low(_led)
-	movwf	((c:gpio_toggle@gpio))^00h,c
+l43:
+	line	58
+		movlw	low(_led0)
+	movwf	((c:led_toggle@led))^00h,c
 
-	call	_gpio_toggle	;wreg free
-	line	36
+	call	_led_toggle	;wreg free
+	line	59
 	
-l901:
+l978:
 	asmopt push
 asmopt off
 movlw  13
@@ -1272,58 +1415,383 @@ movwf	(??_main+0+1)^00h,c
 movlw	175
 movwf	(??_main+0)^00h,c
 	movlw	182
-u217:
+u327:
 decfsz	wreg,f
-	bra	u217
+	bra	u327
 	decfsz	(??_main+0)^00h,c,f
-	bra	u217
+	bra	u327
 	decfsz	(??_main+0+1)^00h,c,f
-	bra	u217
+	bra	u327
 	nop2
 asmopt pop
 
-	line	38
+	line	60
 	
-l903:
+l980:
+		movlw	low(_led1)
+	movwf	((c:led_toggle@led))^00h,c
+
+	call	_led_toggle	;wreg free
+	line	61
+	asmopt push
+asmopt off
+movlw  13
+movwf	(??_main+0+1)^00h,c
+movlw	175
+movwf	(??_main+0)^00h,c
+	movlw	182
+u337:
+decfsz	wreg,f
+	bra	u337
+	decfsz	(??_main+0)^00h,c,f
+	bra	u337
+	decfsz	(??_main+0+1)^00h,c,f
+	bra	u337
+	nop2
+asmopt pop
+
+	line	62
+	
+l982:
 		movlw	low(_button)
 	movwf	((c:gpio_read@gpio))^00h,c
 
 	call	_gpio_read	;wreg free
-	decf	wreg
+	iorlw	0
 	btfss	status,2
-	goto	u201
-	goto	u200
-u201:
-	goto	l907
-u200:
-	line	40
+	goto	u311
+	goto	u310
+u311:
+	goto	l986
+u310:
+	line	64
 	
-l905:
-		movlw	low(_led1)
-	movwf	((c:gpio_write@gpio))^00h,c
-
-	movlw	low(01h)
-	movwf	((c:gpio_write@level))^00h,c
-	call	_gpio_write	;wreg free
-	line	41
-	goto	l33
-	line	44
-	
-l907:
-		movlw	low(_led1)
-	movwf	((c:gpio_write@gpio))^00h,c
+l984:
+		movlw	low(_led2)
+	movwf	((c:led_set@led))^00h,c
 
 	movlw	low(0)
-	movwf	((c:gpio_write@level))^00h,c
-	call	_gpio_write	;wreg free
-	goto	l33
+	movwf	((c:led_set@state))^00h,c
+	call	_led_set	;wreg free
+	line	65
+	goto	l43
+	line	68
+	
+l986:
+		movlw	low(_led2)
+	movwf	((c:led_set@led))^00h,c
+
+	movlw	low(01h)
+	movwf	((c:led_set@state))^00h,c
+	call	_led_set	;wreg free
+	goto	l43
 	global	start
 	goto	start
 	callstack 0
-	line	49
+	line	72
 GLOBAL	__end_of_main
 	__end_of_main:
 	signat	_main,90
+	global	_led_toggle
+
+;; *************** function _led_toggle *****************
+;; Defined at:
+;;		line 28 in file "src/led_driver.c"
+;; Parameters:    Size  Location     Type
+;;  led             1   11[COMRAM] PTR struct .
+;;		 -> led1(3), led0(3), 
+;; Auto vars:     Size  Location     Type
+;;  state           1   12[COMRAM] enum E64
+;; Return value:  Size  Location     Type
+;;                  1    wreg      void 
+;; Registers used:
+;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+;; Tracked objects:
+;;		On entry : 0/0
+;;		On exit  : 0/0
+;;		Unchanged: 0/0
+;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+;;      Params:         1       0       0       0       0       0       0       0       0
+;;      Locals:         1       0       0       0       0       0       0       0       0
+;;      Temps:          0       0       0       0       0       0       0       0       0
+;;      Totals:         2       0       0       0       0       0       0       0       0
+;;Total ram usage:        2 bytes
+;; Hardware stack levels used: 1
+;; Hardware stack levels required when called: 1
+;; This function calls:
+;;		_led_set
+;; This function is called by:
+;;		_main
+;; This function uses a non-reentrant model
+;;
+psect	text1,class=CODE,space=0,reloc=2,group=0
+	file	"src/led_driver.c"
+	line	28
+global __ptext1
+__ptext1:
+psect	text1
+	file	"src/led_driver.c"
+	line	28
+	
+_led_toggle:
+;incstack = 0
+	callstack 29
+	line	30
+	
+l956:
+	movf	((c:led_toggle@led))^00h,c,w
+	movwf	fsr2l
+	clrf	fsr2h
+	movlw	low(02h)
+	addwf	fsr2l
+
+	movf	indf2,w
+	movwf	((c:led_toggle@state))^00h,c
+	line	31
+	
+l958:
+		decf	((c:led_toggle@state))^00h,c,w
+	btfss	status,2
+	goto	u281
+	goto	u280
+
+u281:
+	goto	l962
+u280:
+	line	33
+	
+l960:
+	clrf	((c:led_toggle@state))^00h,c
+	line	34
+	goto	l964
+	line	37
+	
+l962:
+	movlw	low(01h)
+	movwf	((c:led_toggle@state))^00h,c
+	line	39
+	
+l964:
+		movff	(c:led_toggle@led),(c:led_set@led)
+
+	movff	(c:led_toggle@state),(c:led_set@state)
+	call	_led_set	;wreg free
+	line	40
+	
+l84:
+	return	;funcret
+	callstack 0
+GLOBAL	__end_of_led_toggle
+	__end_of_led_toggle:
+	signat	_led_toggle,4217
+	global	_led_init
+
+;; *************** function _led_init *****************
+;; Defined at:
+;;		line 3 in file "src/led_driver.c"
+;; Parameters:    Size  Location     Type
+;;  led             1   11[COMRAM] PTR struct .
+;;		 -> led2(3), led1(3), led0(3), 
+;; Auto vars:     Size  Location     Type
+;;		None
+;; Return value:  Size  Location     Type
+;;                  1    wreg      void 
+;; Registers used:
+;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+;; Tracked objects:
+;;		On entry : 0/0
+;;		On exit  : 0/0
+;;		Unchanged: 0/0
+;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+;;      Params:         1       0       0       0       0       0       0       0       0
+;;      Locals:         0       0       0       0       0       0       0       0       0
+;;      Temps:          0       0       0       0       0       0       0       0       0
+;;      Totals:         1       0       0       0       0       0       0       0       0
+;;Total ram usage:        1 bytes
+;; Hardware stack levels used: 1
+;; Hardware stack levels required when called: 2
+;; This function calls:
+;;		_gpio_init
+;;		_led_set
+;; This function is called by:
+;;		_main
+;; This function uses a non-reentrant model
+;;
+psect	text2,class=CODE,space=0,reloc=2,group=0
+	line	3
+global __ptext2
+__ptext2:
+psect	text2
+	file	"src/led_driver.c"
+	line	3
+	
+_led_init:
+;incstack = 0
+	callstack 28
+	line	5
+	
+l950:
+	movf	((c:led_init@led))^00h,c,w
+	movwf	fsr2l
+	clrf	fsr2h
+	movf	indf2,w
+	movwf	((c:gpio_init@gpio))^00h,c
+	movlw	low(0)
+	movwf	((c:gpio_init@dir))^00h,c
+	call	_gpio_init	;wreg free
+	line	6
+	
+l952:
+	movf	((c:led_init@led))^00h,c,w
+	movwf	fsr2l
+	clrf	fsr2h
+	movlw	low(02h)
+	addwf	fsr2l
+
+	clrf	indf2
+	line	7
+	
+l954:
+		movff	(c:led_init@led),(c:led_set@led)
+
+	movf	((c:led_init@led))^00h,c,w
+	movwf	fsr2l
+	clrf	fsr2h
+	movlw	low(02h)
+	addwf	fsr2l
+
+	movf	indf2,w
+	movwf	((c:led_set@state))^00h,c
+	call	_led_set	;wreg free
+	line	8
+	
+l74:
+	return	;funcret
+	callstack 0
+GLOBAL	__end_of_led_init
+	__end_of_led_init:
+	signat	_led_init,4217
+	global	_led_set
+
+;; *************** function _led_set *****************
+;; Defined at:
+;;		line 10 in file "src/led_driver.c"
+;; Parameters:    Size  Location     Type
+;;  led             1    7[COMRAM] PTR struct .
+;;		 -> led2(3), led1(3), led0(3), 
+;;  state           1    8[COMRAM] enum E64
+;; Auto vars:     Size  Location     Type
+;;  gpio_level      1   10[COMRAM] enum E46
+;; Return value:  Size  Location     Type
+;;                  1    wreg      void 
+;; Registers used:
+;;		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+;; Tracked objects:
+;;		On entry : 0/0
+;;		On exit  : 0/0
+;;		Unchanged: 0/0
+;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+;;      Params:         2       0       0       0       0       0       0       0       0
+;;      Locals:         1       0       0       0       0       0       0       0       0
+;;      Temps:          1       0       0       0       0       0       0       0       0
+;;      Totals:         4       0       0       0       0       0       0       0       0
+;;Total ram usage:        4 bytes
+;; Hardware stack levels used: 1
+;; This function calls:
+;;		_gpio_write
+;; This function is called by:
+;;		_main
+;;		_led_init
+;;		_led_toggle
+;; This function uses a non-reentrant model
+;;
+psect	text3,class=CODE,space=0,reloc=2,group=0
+	line	10
+global __ptext3
+__ptext3:
+psect	text3
+	file	"src/led_driver.c"
+	line	10
+	
+_led_set:
+;incstack = 0
+	callstack 29
+	line	14
+	
+l942:
+	movf	((c:led_set@led))^00h,c,w
+	movwf	fsr2l
+	clrf	fsr2h
+	movlw	low(02h)
+	addwf	fsr2l
+
+	movff	(c:led_set@state),indf2
+
+	line	16
+	movf	((c:led_set@led))^00h,c,w
+	movwf	fsr2l
+	clrf	fsr2h
+	movlw	low(01h)
+	addwf	fsr2l
+
+	decf	postinc2,w
+	btfss	status,2
+	goto	u231
+	goto	u230
+
+u231:
+	goto	l946
+u230:
+	line	18
+	
+l944:
+		decf	((c:led_set@state))^00h,c,w
+	btfsc	status,2
+	goto	u241
+	goto	u240
+
+u241:
+	movlw	1
+	goto	u250
+u240:
+	movlw	0
+u250:
+	movwf	((c:led_set@gpio_level))^00h,c
+	line	19
+	goto	l948
+	line	22
+	
+l946:
+		decf	((c:led_set@state))^00h,c,w
+	btfss	status,2
+	goto	u261
+	goto	u260
+
+u261:
+	movlw	1
+	goto	u270
+u260:
+	movlw	0
+u270:
+	movwf	((c:led_set@gpio_level))^00h,c
+	line	25
+	
+l948:
+	movf	((c:led_set@led))^00h,c,w
+	movwf	fsr2l
+	clrf	fsr2h
+	movf	indf2,w
+	movwf	((c:gpio_write@gpio))^00h,c
+	movff	(c:led_set@gpio_level),(c:gpio_write@level)
+	call	_gpio_write	;wreg free
+	line	26
+	
+l79:
+	return	;funcret
+	callstack 0
+GLOBAL	__end_of_led_set
+	__end_of_led_set:
+	signat	_led_set,8313
 	global	_gpio_write
 
 ;; *************** function _gpio_write *****************
@@ -1331,7 +1799,7 @@ GLOBAL	__end_of_main
 ;;		line 16 in file "src/gpio_driver.c"
 ;; Parameters:    Size  Location     Type
 ;;  gpio            1    0[COMRAM] PTR struct .
-;;		 -> led1(7), 
+;;		 -> gpio_led2(7), gpio_led1(7), gpio_led0(7), 
 ;;  level           1    1[COMRAM] enum E3353
 ;; Auto vars:     Size  Location     Type
 ;;		None
@@ -1353,35 +1821,35 @@ GLOBAL	__end_of_main
 ;; This function calls:
 ;;		Nothing
 ;; This function is called by:
-;;		_main
+;;		_led_set
 ;; This function uses a non-reentrant model
 ;;
-psect	text1,class=CODE,space=0,reloc=2,group=0
+psect	text4,class=CODE,space=0,reloc=2,group=0
 	file	"src/gpio_driver.c"
 	line	16
-global __ptext1
-__ptext1:
-psect	text1
+global __ptext4
+__ptext4:
+psect	text4
 	file	"src/gpio_driver.c"
 	line	16
 	
 _gpio_write:
 ;incstack = 0
-	callstack 30
+	callstack 28
 	line	18
 	
-l893:
+l930:
 		decf	((c:gpio_write@level))^00h,c,w
 	btfss	status,2
 	goto	u171
 	goto	u170
 
 u171:
-	goto	l897
+	goto	l934
 u170:
 	line	20
 	
-l895:
+l932:
 	movf	((c:gpio_write@gpio))^00h,c,w
 	movwf	fsr2l
 	clrf	fsr2h
@@ -1413,10 +1881,10 @@ u184:
 	movf	((??_gpio_write+1))^00h,c,w
 	iorwf	indf2
 	line	21
-	goto	l48
+	goto	l58
 	line	24
 	
-l897:
+l934:
 	movf	((c:gpio_write@gpio))^00h,c,w
 	movwf	fsr2l
 	clrf	fsr2h
@@ -1452,20 +1920,21 @@ u194:
 	andwf	indf2
 	line	26
 	
-l48:
+l58:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_gpio_write
 	__end_of_gpio_write:
 	signat	_gpio_write,8313
-	global	_gpio_toggle
+	global	_gpio_init
 
-;; *************** function _gpio_toggle *****************
+;; *************** function _gpio_init *****************
 ;; Defined at:
-;;		line 37 in file "src/gpio_driver.c"
+;;		line 4 in file "src/gpio_driver.c"
 ;; Parameters:    Size  Location     Type
 ;;  gpio            1    0[COMRAM] PTR struct .
-;;		 -> led(7), 
+;;		 -> button(7), gpio_led2(7), gpio_led1(7), gpio_led0(7), 
+;;  dir             1    1[COMRAM] enum E3349
 ;; Auto vars:     Size  Location     Type
 ;;		None
 ;; Return value:  Size  Location     Type
@@ -1477,70 +1946,120 @@ GLOBAL	__end_of_gpio_write
 ;;		On exit  : 0/0
 ;;		Unchanged: 0/0
 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
-;;      Params:         1       0       0       0       0       0       0       0       0
+;;      Params:         2       0       0       0       0       0       0       0       0
 ;;      Locals:         0       0       0       0       0       0       0       0       0
-;;      Temps:          4       0       0       0       0       0       0       0       0
-;;      Totals:         5       0       0       0       0       0       0       0       0
-;;Total ram usage:        5 bytes
+;;      Temps:          5       0       0       0       0       0       0       0       0
+;;      Totals:         7       0       0       0       0       0       0       0       0
+;;Total ram usage:        7 bytes
 ;; Hardware stack levels used: 1
 ;; This function calls:
 ;;		Nothing
 ;; This function is called by:
 ;;		_main
+;;		_led_init
 ;; This function uses a non-reentrant model
 ;;
-psect	text2,class=CODE,space=0,reloc=2,group=0
-	line	37
-global __ptext2
-__ptext2:
-psect	text2
+psect	text5,class=CODE,space=0,reloc=2,group=0
+	line	4
+global __ptext5
+__ptext5:
+psect	text5
 	file	"src/gpio_driver.c"
-	line	37
+	line	4
 	
-_gpio_toggle:
+_gpio_init:
 ;incstack = 0
-	callstack 30
-	line	39
+	callstack 29
+	line	6
 	
-l881:
-	movf	((c:gpio_toggle@gpio))^00h,c,w
+l936:
+		decf	((c:gpio_init@dir))^00h,c,w
+	btfss	status,2
+	goto	u201
+	goto	u200
+
+u201:
+	goto	l940
+u200:
+	line	8
+	
+l938:
+	movf	((c:gpio_init@gpio))^00h,c,w
 	movwf	fsr2l
 	clrf	fsr2h
 	movlw	low(06h)
 	addwf	fsr2l
 
 	movf	indf2,w
-	movwf	(??_gpio_toggle+0)^00h,c
+	movwf	(??_gpio_init+0)^00h,c
 	movlw	(01h)&0ffh
-	movwf	(??_gpio_toggle+1)^00h,c
-	incf	((??_gpio_toggle+0))^00h,c
-	goto	u144
-u145:
+	movwf	(??_gpio_init+1)^00h,c
+	incf	((??_gpio_init+0))^00h,c
+	goto	u214
+u215:
 	bcf	status,0
-	rlcf	((??_gpio_toggle+1))^00h,c
-u144:
-	decfsz	((??_gpio_toggle+0))^00h,c
-	goto	u145
-	movf	((c:gpio_toggle@gpio))^00h,c,w
+	rlcf	((??_gpio_init+1))^00h,c
+u214:
+	decfsz	((??_gpio_init+0))^00h,c
+	goto	u215
+	movf	((c:gpio_init@gpio))^00h,c,w
 	movwf	fsr2l
 	clrf	fsr2h
-	movlw	low(04h)
+	movlw	low(02h)
 	addwf	fsr2l
 
-	movff	postinc2,??_gpio_toggle+2
-	movff	postdec2,??_gpio_toggle+2+1
-	movff	??_gpio_toggle+2,fsr2l
-	movff	??_gpio_toggle+2+1,fsr2h
-	movf	((??_gpio_toggle+1))^00h,c,w
-	xorwf	indf2
-	line	40
+	movff	postinc2,??_gpio_init+2
+	movff	postdec2,??_gpio_init+2+1
+	movff	??_gpio_init+2,fsr2l
+	movff	??_gpio_init+2+1,fsr2h
+	movf	((??_gpio_init+1))^00h,c,w
+	iorwf	indf2
+	line	9
+	goto	l53
+	line	12
 	
-l55:
+l940:
+	movf	((c:gpio_init@gpio))^00h,c,w
+	movwf	fsr2l
+	clrf	fsr2h
+	movlw	low(06h)
+	addwf	fsr2l
+
+	movf	indf2,w
+	movwf	(??_gpio_init+0)^00h,c
+	movlw	(01h)&0ffh
+	movwf	(??_gpio_init+1)^00h,c
+	incf	((??_gpio_init+0))^00h,c
+	goto	u224
+u225:
+	bcf	status,0
+	rlcf	((??_gpio_init+1))^00h,c
+u224:
+	decfsz	((??_gpio_init+0))^00h,c
+	goto	u225
+	movf	((??_gpio_init+1))^00h,c,w
+	xorlw	0ffh
+	movwf	(??_gpio_init+2)^00h,c
+	movf	((c:gpio_init@gpio))^00h,c,w
+	movwf	fsr2l
+	clrf	fsr2h
+	movlw	low(02h)
+	addwf	fsr2l
+
+	movff	postinc2,??_gpio_init+3
+	movff	postdec2,??_gpio_init+3+1
+	movff	??_gpio_init+3,fsr2l
+	movff	??_gpio_init+3+1,fsr2h
+	movf	((??_gpio_init+2))^00h,c,w
+	andwf	indf2
+	line	14
+	
+l53:
 	return	;funcret
 	callstack 0
-GLOBAL	__end_of_gpio_toggle
-	__end_of_gpio_toggle:
-	signat	_gpio_toggle,4217
+GLOBAL	__end_of_gpio_init
+	__end_of_gpio_init:
+	signat	_gpio_init,8313
 	global	_gpio_read
 
 ;; *************** function _gpio_read *****************
@@ -1572,11 +2091,11 @@ GLOBAL	__end_of_gpio_toggle
 ;;		_main
 ;; This function uses a non-reentrant model
 ;;
-psect	text3,class=CODE,space=0,reloc=2,group=0
+psect	text6,class=CODE,space=0,reloc=2,group=0
 	line	28
-global __ptext3
-__ptext3:
-psect	text3
+global __ptext6
+__ptext6:
+psect	text6
 	file	"src/gpio_driver.c"
 	line	28
 	
@@ -1585,7 +2104,7 @@ _gpio_read:
 	callstack 30
 	line	30
 	
-l883:
+l966:
 	movf	((c:gpio_read@gpio))^00h,c,w
 	movwf	fsr2l
 	clrf	fsr2h
@@ -1606,172 +2125,39 @@ l883:
 	movlw	(01h)&0ffh
 	movwf	(??_gpio_read+4)^00h,c
 	incf	((??_gpio_read+3))^00h,c
-	goto	u154
-u155:
+	goto	u294
+u295:
 	bcf	status,0
 	rlcf	((??_gpio_read+4))^00h,c
-u154:
+u294:
 	decfsz	((??_gpio_read+3))^00h,c
-	goto	u155
+	goto	u295
 	movf	((??_gpio_read+4))^00h,c,w
 	andwf	((??_gpio_read+2))^00h,c,w
 	iorlw	0
 	btfsc	status,2
-	goto	u161
-	goto	u160
-u161:
-	goto	l889
-u160:
+	goto	u301
+	goto	u300
+u301:
+	goto	l972
+u300:
 	line	32
 	
-l885:
+l968:
 	movlw	(01h)&0ffh
-	goto	l52
+	goto	l62
 	line	34
 	
-l889:
+l972:
 	movlw	(0)&0ffh
 	line	35
 	
-l52:
+l62:
 	return	;funcret
 	callstack 0
 GLOBAL	__end_of_gpio_read
 	__end_of_gpio_read:
 	signat	_gpio_read,4217
-	global	_gpio_init
-
-;; *************** function _gpio_init *****************
-;; Defined at:
-;;		line 4 in file "src/gpio_driver.c"
-;; Parameters:    Size  Location     Type
-;;  gpio            1    0[COMRAM] PTR struct .
-;;		 -> button(7), led1(7), led(7), 
-;;  dir             1    1[COMRAM] enum E3349
-;; Auto vars:     Size  Location     Type
-;;		None
-;; Return value:  Size  Location     Type
-;;                  1    wreg      void 
-;; Registers used:
-;;		wreg, fsr2l, fsr2h, status,2, status,0
-;; Tracked objects:
-;;		On entry : 0/0
-;;		On exit  : 0/0
-;;		Unchanged: 0/0
-;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
-;;      Params:         2       0       0       0       0       0       0       0       0
-;;      Locals:         0       0       0       0       0       0       0       0       0
-;;      Temps:          5       0       0       0       0       0       0       0       0
-;;      Totals:         7       0       0       0       0       0       0       0       0
-;;Total ram usage:        7 bytes
-;; Hardware stack levels used: 1
-;; This function calls:
-;;		Nothing
-;; This function is called by:
-;;		_main
-;; This function uses a non-reentrant model
-;;
-psect	text4,class=CODE,space=0,reloc=2,group=0
-	line	4
-global __ptext4
-__ptext4:
-psect	text4
-	file	"src/gpio_driver.c"
-	line	4
-	
-_gpio_init:
-;incstack = 0
-	callstack 30
-	line	6
-	
-l875:
-		decf	((c:gpio_init@dir))^00h,c,w
-	btfss	status,2
-	goto	u111
-	goto	u110
-
-u111:
-	goto	l879
-u110:
-	line	8
-	
-l877:
-	movf	((c:gpio_init@gpio))^00h,c,w
-	movwf	fsr2l
-	clrf	fsr2h
-	movlw	low(06h)
-	addwf	fsr2l
-
-	movf	indf2,w
-	movwf	(??_gpio_init+0)^00h,c
-	movlw	(01h)&0ffh
-	movwf	(??_gpio_init+1)^00h,c
-	incf	((??_gpio_init+0))^00h,c
-	goto	u124
-u125:
-	bcf	status,0
-	rlcf	((??_gpio_init+1))^00h,c
-u124:
-	decfsz	((??_gpio_init+0))^00h,c
-	goto	u125
-	movf	((c:gpio_init@gpio))^00h,c,w
-	movwf	fsr2l
-	clrf	fsr2h
-	movlw	low(02h)
-	addwf	fsr2l
-
-	movff	postinc2,??_gpio_init+2
-	movff	postdec2,??_gpio_init+2+1
-	movff	??_gpio_init+2,fsr2l
-	movff	??_gpio_init+2+1,fsr2h
-	movf	((??_gpio_init+1))^00h,c,w
-	iorwf	indf2
-	line	9
-	goto	l43
-	line	12
-	
-l879:
-	movf	((c:gpio_init@gpio))^00h,c,w
-	movwf	fsr2l
-	clrf	fsr2h
-	movlw	low(06h)
-	addwf	fsr2l
-
-	movf	indf2,w
-	movwf	(??_gpio_init+0)^00h,c
-	movlw	(01h)&0ffh
-	movwf	(??_gpio_init+1)^00h,c
-	incf	((??_gpio_init+0))^00h,c
-	goto	u134
-u135:
-	bcf	status,0
-	rlcf	((??_gpio_init+1))^00h,c
-u134:
-	decfsz	((??_gpio_init+0))^00h,c
-	goto	u135
-	movf	((??_gpio_init+1))^00h,c,w
-	xorlw	0ffh
-	movwf	(??_gpio_init+2)^00h,c
-	movf	((c:gpio_init@gpio))^00h,c,w
-	movwf	fsr2l
-	clrf	fsr2h
-	movlw	low(02h)
-	addwf	fsr2l
-
-	movff	postinc2,??_gpio_init+3
-	movff	postdec2,??_gpio_init+3+1
-	movff	??_gpio_init+3,fsr2l
-	movff	??_gpio_init+3+1,fsr2h
-	movf	((??_gpio_init+2))^00h,c,w
-	andwf	indf2
-	line	14
-	
-l43:
-	return	;funcret
-	callstack 0
-GLOBAL	__end_of_gpio_init
-	__end_of_gpio_init:
-	signat	_gpio_init,8313
 psect	smallconst,class=SMALLCONST,space=0,reloc=2,noexec
 global __psmallconst
 __psmallconst:

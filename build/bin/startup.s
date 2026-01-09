@@ -9,9 +9,10 @@
 	;
 	; -q --opt=none --chip=18f4550 \
 	; --dfp=/opt/microchip/mplabx/v6.25/packs/Microchip/PIC18Fxxxx_DFP/1.7.171/xc8 \
-	; -Iinc build/obj/main.p1 build/obj/src/gpio_driver.p1 -obutton_event \
-	; --objdir=build/bin --outdir=build/bin -L--fixupoverflow=error \
-	; --std=c99 --rors --icl=auto --callgraph=none --warn=-3 \
+	; -Iinc build/obj/main.p1 build/obj/src/gpio_driver.p1 \
+	; build/obj/src/led_driver.p1 -obutton_event --objdir=build/bin \
+	; --outdir=build/bin -L--fixupoverflow=error --std=c99 --rors \
+	; --icl=auto --callgraph=none --warn=-3 \
 	; --errformat=%f:%l:%c: error: (%n) %s \
 	; --warnformat=%f:%l:%c: warning: (%n) %s \
 	; --msgformat=%f:%l:%c: advisory: (%n) %s
