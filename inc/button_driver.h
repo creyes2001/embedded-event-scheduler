@@ -22,10 +22,11 @@ typedef enum{
 typedef struct{
 	gpio_t *gpio;				//hardware
 	button_polarity_e polarity;	//ACTIVE_LOW / ACTIVE_HIGH
-	button_state_e cs_state;	//current debounced state
-	button_state_e ls_state;	//last debounced state
+	button_state_e state;	//current debounced state
+	button_state_e last_state;	//last debounced state
 	uint8_t debounce_cnt;		//current counter
-	uint8_t debounced_ticks;	//thresold		
+	uint8_t debounced_ticks;	//thresold	
+	button_event_e event;	
 }button_t;
 
 void button_init(button_t *btn, 
