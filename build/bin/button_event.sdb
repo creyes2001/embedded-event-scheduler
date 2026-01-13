@@ -3,7 +3,7 @@
 [d edition pro ]
 [d chip 18F4550 ]
 [d frameptr 4065 ]
-"35 /home/reyes/embedded/driver_test/button_event/main.c
+"37 /home/reyes/embedded/driver_test/button_event/main.c
 [e E3367 . `uc
 ACTIVE_LOW 0
 ACTIVE_HIGH 1
@@ -12,15 +12,10 @@ ACTIVE_HIGH 1
 LED_OFF 0
 LED_ON 1
 ]
-"55
+"78
 [e E3349 . `uc
 GPIO_OUTPUT 0
 GPIO_INPUT 1
-]
-"62
-[e E3353 . `uc
-GPIO_LOW 0
-GPIO_HIGH 1
 ]
 "4 /home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
 [e E3349 . `uc
@@ -111,25 +106,42 @@ GPIO_HIGH 1
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "91 /opt/microchip/xc8/v3.10/pic/sources/c99/common/Umul64.c
 [v ___omul __omul `(uo  1 e 8 0 ]
-"50 /home/reyes/embedded/driver_test/button_event/main.c
+"52 /home/reyes/embedded/driver_test/button_event/main.c
+[v _isr isr `IIH(v  1 e 1 0 ]
+"62
+[v _led_task0 led_task0 `(v  1 e 1 0 ]
+"67
+[v _led_task1 led_task1 `(v  1 e 1 0 ]
+"73
 [v _main main `(i  1 e 2 0 ]
 "4 /home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
 [v _gpio_init gpio_init `(v  1 e 1 0 ]
 "16
 [v _gpio_write gpio_write `(v  1 e 1 0 ]
-"28
-[v _gpio_read gpio_read `(E3353  1 e 1 0 ]
+"4 /home/reyes/embedded/driver_test/button_event/src/interrupts.c
+[v _enable_gi enable_gi `(v  1 e 1 0 ]
 "3 /home/reyes/embedded/driver_test/button_event/src/led_driver.c
 [v _led_init led_init `(v  1 e 1 0 ]
 "10
 [v _led_set led_set `(v  1 e 1 0 ]
 "28
 [v _led_toggle led_toggle `(v  1 e 1 0 ]
-"2451 /opt/microchip/mplabx/v6.25/packs/Microchip/PIC18Fxxxx_DFP/1.7.171/xc8/pic/include/proc/pic18f4550.h
-[v _PORTB PORTB `VEuc  1 e 1 @3969 ]
-"2703
-[v _PORTD PORTD `VEuc  1 e 1 @3971 ]
-"3071
+"8 /home/reyes/embedded/driver_test/button_event/src/scheduler.c
+[v _scheduler_init scheduler_init `(v  1 e 1 0 ]
+"21
+[v _scheduler_add_task scheduler_add_task `(v  1 e 1 0 ]
+"33
+[v _scheduler_tick scheduler_tick `(v  1 e 1 0 ]
+"47
+[v _scheduler_run scheduler_run `(v  1 e 1 0 ]
+"6 /home/reyes/embedded/driver_test/button_event/src/timer0.c
+[v _timer0_init timer0_init `(v  1 e 1 0 ]
+"20
+[v _timer0_start timer0_start `(v  1 e 1 0 ]
+"30
+[v _timer0_reload timer0_reload `(v  1 e 1 0 ]
+[v i2_timer0_reload timer0_reload `(v  1 e 1 0 ]
+"3071 /opt/microchip/mplabx/v6.25/packs/Microchip/PIC18Fxxxx_DFP/1.7.171/xc8/pic/include/proc/pic18f4550.h
 [v _LATB LATB `VEuc  1 e 1 @3978 ]
 "3261
 [v _LATD LATD `VEuc  1 e 1 @3980 ]
@@ -137,76 +149,189 @@ GPIO_HIGH 1
 [v _TRISB TRISB `VEuc  1 e 1 @3987 ]
 "3999
 [v _TRISD TRISD `VEuc  1 e 1 @3989 ]
+"8067
+[v _T0CON T0CON `VEuc  1 e 1 @4053 ]
+[s S315 . 1 `uc 1 T0PS 1 0 :3:0 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+`uc 1 T08BIT 1 0 :1:6 
+`uc 1 TMR0ON 1 0 :1:7 
+]
+"8087
+[s S322 . 1 `uc 1 T0PS0 1 0 :1:0 
+`uc 1 T0PS1 1 0 :1:1 
+`uc 1 T0PS2 1 0 :1:2 
+]
+[u S326 . 1 `S315 1 . 1 0 `S322 1 . 1 0 ]
+[v _T0CONbits T0CONbits `VES326  1 e 1 @4053 ]
+"8144
+[v _TMR0L TMR0L `VEuc  1 e 1 @4054 ]
+"8151
+[v _TMR0H TMR0H `VEuc  1 e 1 @4055 ]
+[s S45 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INT0IF 1 0 :1:1 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INT0IE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+`uc 1 PEIE_GIEL 1 0 :1:6 
+`uc 1 GIE_GIEH 1 0 :1:7 
+]
+"8612
+[s S54 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 INT0F 1 0 :1:1 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 INT0E 1 0 :1:4 
+`uc 1 T0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+[s S63 . 1 `uc 1 . 1 0 :6:0 
+`uc 1 GIEL 1 0 :1:6 
+`uc 1 GIEH 1 0 :1:7 
+]
+[u S67 . 1 `S45 1 . 1 0 `S54 1 . 1 0 `S63 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES67  1 e 1 @4082 ]
 [s S24 . 7 `*.39VEuc 1 port 2 0 `*.39VEuc 1 tris 2 2 `*.39VEuc 1 lat 2 4 `uc 1 pin 1 6 ]
-"7 /home/reyes/embedded/driver_test/button_event/main.c
+"9 /home/reyes/embedded/driver_test/button_event/main.c
 [v _gpio_led0 gpio_led0 `S24  1 e 7 0 ]
-"14
+"16
 [v _gpio_led1 gpio_led1 `S24  1 e 7 0 ]
-"21
+"23
 [v _gpio_led2 gpio_led2 `S24  1 e 7 0 ]
-"28
+"30
 [v _button button `S24  1 e 7 0 ]
-"35
+"37
 [s S41 . 3 `*.30S24 1 gpio 1 0 `E3367 1 polarity 1 1 `E3371 1 state 1 2 ]
 [v _led0 led0 `S41  1 e 3 0 ]
-"40
+"42
 [v _led1 led1 `S41  1 e 3 0 ]
-"45
+"47
 [v _led2 led2 `S41  1 e 3 0 ]
-"50
+[s S286 . 7 `*.37(v 1 task 2 0 `us 1 period 2 2 `VEus 1 counter 2 4 `VEuc 1 ready 1 6 ]
+"5 /home/reyes/embedded/driver_test/button_event/src/scheduler.c
+[v _task_list task_list `VE[5]S286  1 s 35 task_list ]
+"6
+[v _task_count task_count `uc  1 s 1 task_count ]
+"73 /home/reyes/embedded/driver_test/button_event/main.c
 [v _main main `(i  1 e 2 0 ]
 {
-"72
+"93
+} 0
+"20 /home/reyes/embedded/driver_test/button_event/src/timer0.c
+[v _timer0_start timer0_start `(v  1 e 1 0 ]
+{
+"23
+} 0
+"6
+[v _timer0_init timer0_init `(v  1 e 1 0 ]
+{
+"18
+} 0
+"30
+[v _timer0_reload timer0_reload `(v  1 e 1 0 ]
+{
+"34
+} 0
+"47 /home/reyes/embedded/driver_test/button_event/src/scheduler.c
+[v _scheduler_run scheduler_run `(v  1 e 1 0 ]
+{
+"49
+[v scheduler_run@i i `uc  1 a 1 8 ]
+"58
+} 0
+"62 /home/reyes/embedded/driver_test/button_event/main.c
+[v _led_task0 led_task0 `(v  1 e 1 0 ]
+{
+"65
+} 0
+"67
+[v _led_task1 led_task1 `(v  1 e 1 0 ]
+{
+"70
 } 0
 "28 /home/reyes/embedded/driver_test/button_event/src/led_driver.c
 [v _led_toggle led_toggle `(v  1 e 1 0 ]
 {
 "30
-[v led_toggle@state state `E64  1 a 1 12 ]
+[v led_toggle@state state `E64  1 a 1 6 ]
+[s S24 . 7 `*.39VEuc 1 port 2 0 `*.39VEuc 1 tris 2 2 `*.39VEuc 1 lat 2 4 `uc 1 pin 1 6 ]
 "28
-[v led_toggle@led led `*.30S41  1 p 1 11 ]
+[s S41 . 3 `*.30S24 1 gpio 1 0 `E3367 1 polarity 1 1 `E3371 1 state 1 2 ]
+[v led_toggle@led led `*.30S41  1 p 1 5 ]
 "40
 } 0
-"3
+"8 /home/reyes/embedded/driver_test/button_event/src/scheduler.c
+[v _scheduler_init scheduler_init `(v  1 e 1 0 ]
+{
+"10
+[v scheduler_init@i i `uc  1 a 1 11 ]
+"19
+} 0
+"21
+[v _scheduler_add_task scheduler_add_task `(v  1 e 1 0 ]
+{
+[v scheduler_add_task@task task `*.37(v  1 p 2 11 ]
+[v scheduler_add_task@period_ms period_ms `us  1 p 2 13 ]
+"31
+} 0
+"3 /home/reyes/embedded/driver_test/button_event/src/led_driver.c
 [v _led_init led_init `(v  1 e 1 0 ]
 {
 [s S24 . 7 `*.39VEuc 1 port 2 0 `*.39VEuc 1 tris 2 2 `*.39VEuc 1 lat 2 4 `uc 1 pin 1 6 ]
 [s S41 . 3 `*.30S24 1 gpio 1 0 `E3367 1 polarity 1 1 `E3371 1 state 1 2 ]
-[v led_init@led led `*.30S41  1 p 1 11 ]
+[v led_init@led led `*.30S41  1 p 1 5 ]
 "8
 } 0
 "10
 [v _led_set led_set `(v  1 e 1 0 ]
 {
 "13
-[v led_set@gpio_level gpio_level `E46  1 a 1 10 ]
+[v led_set@gpio_level gpio_level `E46  1 a 1 16 ]
 [s S24 . 7 `*.39VEuc 1 port 2 0 `*.39VEuc 1 tris 2 2 `*.39VEuc 1 lat 2 4 `uc 1 pin 1 6 ]
 "10
 [s S41 . 3 `*.30S24 1 gpio 1 0 `E3367 1 polarity 1 1 `E3371 1 state 1 2 ]
-[v led_set@led led `*.30S41  1 p 1 7 ]
-[v led_set@state state `E64  1 p 1 8 ]
+[v led_set@led led `*.30S41  1 p 1 13 ]
+[v led_set@state state `E64  1 p 1 14 ]
 "26
 } 0
 "16 /home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
 [v _gpio_write gpio_write `(v  1 e 1 0 ]
 {
 [s S24 . 7 `*.39VEuc 1 port 2 0 `*.39VEuc 1 tris 2 2 `*.39VEuc 1 lat 2 4 `uc 1 pin 1 6 ]
-[v gpio_write@gpio gpio `*.30S24  1 p 1 0 ]
-[v gpio_write@level level `E3353  1 p 1 1 ]
+[v gpio_write@gpio gpio `*.30S24  1 p 1 11 ]
+[v gpio_write@level level `E3353  1 p 1 12 ]
 "26
 } 0
 "4
 [v _gpio_init gpio_init `(v  1 e 1 0 ]
 {
 [s S24 . 7 `*.39VEuc 1 port 2 0 `*.39VEuc 1 tris 2 2 `*.39VEuc 1 lat 2 4 `uc 1 pin 1 6 ]
-[v gpio_init@gpio gpio `*.30S24  1 p 1 0 ]
-[v gpio_init@dir dir `E3349  1 p 1 1 ]
+[v gpio_init@gpio gpio `*.30S24  1 p 1 11 ]
+[v gpio_init@dir dir `E3349  1 p 1 12 ]
 "14
 } 0
-"28
-[v _gpio_read gpio_read `(E3353  1 e 1 0 ]
+"4 /home/reyes/embedded/driver_test/button_event/src/interrupts.c
+[v _enable_gi enable_gi `(v  1 e 1 0 ]
 {
-[s S24 . 7 `*.39VEuc 1 port 2 0 `*.39VEuc 1 tris 2 2 `*.39VEuc 1 lat 2 4 `uc 1 pin 1 6 ]
-[v gpio_read@gpio gpio `*.30S24  1 p 1 0 ]
+"8
+} 0
+"52 /home/reyes/embedded/driver_test/button_event/main.c
+[v _isr isr `IIH(v  1 e 1 0 ]
+{
+"60
+} 0
+"30 /home/reyes/embedded/driver_test/button_event/src/timer0.c
+[v i2_timer0_reload timer0_reload `(v  1 e 1 0 ]
+{
+"34
+} 0
+"33 /home/reyes/embedded/driver_test/button_event/src/scheduler.c
+[v _scheduler_tick scheduler_tick `(v  1 e 1 0 ]
+{
 "35
+[v scheduler_tick@i i `uc  1 a 1 4 ]
+"45
 } 0

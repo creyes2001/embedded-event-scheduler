@@ -14,7 +14,10 @@ TARGET = $(BIN_DIR)/button_event
     
 SOURCES = main.c\
 		  src/gpio_driver.c\
-		  src/led_driver.c
+		  src/led_driver.c\
+		  src/scheduler.c\
+		  src/timer0.c\
+		  src/interrupts.c
 
 		 
            

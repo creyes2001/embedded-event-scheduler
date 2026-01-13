@@ -29,7 +29,7 @@ void timer0_stop(void)
 
 void timer0_reload(void)
 {
-	TMR0H = (TIMER0_RELOAD << 8) & 0xFF;
+	TMR0H = (TIMER0_RELOAD >> 8) & 0xFF;
 	TMR0L = TIMER0_RELOAD & 0xFF;
 }
 

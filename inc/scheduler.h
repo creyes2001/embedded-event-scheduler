@@ -13,7 +13,7 @@ typedef struct {
 }task_t;
 
 void scheduler_init(void);
-uint8_t scheduler_add_task(task_func_t task, uint16_t period_ms);
+void scheduler_add_task(task_func_t task, uint16_t period_ms);
 void scheduler_tick(void);
 void scheduler_run(void);
 
