@@ -8,8 +8,8 @@ typedef void (*task_func_t)(void);
 typedef struct {
 	task_func_t task;	//task function
 	uint16_t period;	//period in ms
-	uint16_t counter;	//time accumulator
-	uint8_t ready;		//task ready flag
+	volatile uint16_t counter;	//time accumulator
+	volatile uint8_t ready;		//task ready flag
 }task_t;
 
 void scheduler_init(void);
