@@ -4,13 +4,13 @@
 #include <stdint.h>
 
 typedef enum{
-	EVENT_BUTTON_NONE,
+	EVENT_NONE,
 	EVENT_BUTTON_PRESSED,
-	EVENT_BUTTON_RELEASSED
+	EVENT_BUTTON_RELEASED
 }event_e;
 
 void event_init(void);
 uint8_t event_push(event_e ev);
-event_t event_pop(void);
+event_e event_pop(void);
 
 #endif

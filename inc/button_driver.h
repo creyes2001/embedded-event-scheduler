@@ -4,8 +4,8 @@
 #include "gpio_driver.h"
 
 typedef enum{
-	ACTIVE_LOW,
-	ACTIVE_HIGH
+	BUTTON_ACTIVE_LOW,
+	BUTTON_ACTIVE_HIGH
 }button_polarity_e;
 
 typedef enum{
@@ -25,7 +25,7 @@ typedef struct{
 	button_state_e state;	//current debounced state
 	button_state_e last_state;	//last debounced state
 	uint8_t debounce_cnt;		//current counter
-	uint8_t debounced_ticks;	//thresold	
+	uint8_t debounce_ticks;	//thresold	
 	button_event_e event;	
 }button_t;
 

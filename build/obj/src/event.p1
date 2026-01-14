@@ -1,0 +1,82 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"5 src/event.c
+[c E36 0 1 2 .. ]
+[n E36 . EVENT_NONE EVENT_BUTTON_PRESSED EVENT_BUTTON_RELEASSED  ]
+"5 src/event.c
+[v _queue `VE36 ~T0 @X0 -> 10 `i s ]
+"6
+[v _head `Vuc ~T0 @X0 1 s ]
+"7
+[v _tail `Vuc ~T0 @X0 1 s ]
+"9
+[v _event_init `(v ~T0 @X0 1 ef ]
+"10
+{
+[e :U _event_init ]
+[f ]
+"11
+[e = _head -> -> 0 `i `uc ]
+"12
+[e = _tail -> -> 0 `i `uc ]
+"13
+[e :UE 1 ]
+}
+"15
+[v _event_push `(uc ~T0 @X0 1 ef1`E36 ]
+"16
+{
+[e :U _event_push ]
+"15
+[v _ev `E36 ~T0 @X0 1 r1 ]
+"16
+[f ]
+"17
+[v _next `uc ~T0 @X0 1 a ]
+[e = _next -> % + -> _head `i -> 1 `i -> 10 `i `uc ]
+"18
+[e $ ! == -> _next `i -> _tail `i 3  ]
+"19
+{
+"20
+[e ) -> -> 0 `i `uc ]
+[e $UE 2  ]
+"21
+}
+[e :U 3 ]
+"23
+[e = *U + &U _queue * -> _head `ux -> -> # *U &U _queue `ui `ux _ev ]
+"24
+[e = _head _next ]
+"25
+[e ) -> -> 1 `i `uc ]
+[e $UE 2  ]
+"26
+[e :UE 2 ]
+}
+"28
+[v _event_pop `(E36 ~T0 @X0 1 ef ]
+"29
+{
+[e :U _event_pop ]
+[f ]
+"30
+[e $ ! == -> _head `i -> _tail `i 5  ]
+"31
+{
+"32
+[e ) . `E36 0 ]
+[e $UE 4  ]
+"33
+}
+[e :U 5 ]
+"35
+[v _ev `E36 ~T0 @X0 1 a ]
+[e = _ev *U + &U _queue * -> _tail `ux -> -> # *U &U _queue `ui `ux ]
+"36
+[e = _tail -> % + -> _tail `i -> 1 `i -> 10 `i `uc ]
+"37
+[e ) _ev ]
+[e $UE 4  ]
+"38
+[e :UE 4 ]
+}

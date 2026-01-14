@@ -1,0 +1,157 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"6 inc/gpio_driver.h
+[s S1 `*Vuc 1 `*Vuc 1 `*Vuc 1 `uc 1 ]
+[n S1 . port tris lat pin ]
+"3 src/button_driver.c
+[c E60 0 1 .. ]
+[n E60 . BUTTON_ACTIVE_LOW BUTTON_ACTIVE_HIGH  ]
+[c E64 0 1 .. ]
+[n E64 . BUTTON_RELEASED BUTTON_PRESSED  ]
+[c E68 0 1 2 .. ]
+[n E68 . BUTTON_EVENT_NONE BUTTON_EVENT_PRESSED BUTTON_EVENT_RELEASED  ]
+"22 inc/button_driver.h
+[s S2 `*S1 1 `E60 1 `E64 1 `E64 1 `uc 1 `uc 1 `E68 1 ]
+[n S2 . gpio polarity state last_state debounce_cnt debounce_ticks event ]
+"13 src/button_driver.c
+[c E42 0 1 .. ]
+[n E42 . GPIO_OUTPUT GPIO_INPUT  ]
+"23 inc/gpio_driver.h
+[v _gpio_init `(v ~T0 @X0 0 ef2`*S1`E42 ]
+"21 src/button_driver.c
+[c E46 0 1 .. ]
+[n E46 . GPIO_LOW GPIO_HIGH  ]
+"25 inc/gpio_driver.h
+[v _gpio_read `(E46 ~T0 @X0 0 ef1`*S1 ]
+"3 src/button_driver.c
+[v _button_init `(v ~T0 @X0 1 ef4`*S2`*S1`E60`uc ]
+"4
+{
+[e :U _button_init ]
+"3
+[v _btn `*S2 ~T0 @X0 1 r1 ]
+[v _gpio `*S1 ~T0 @X0 1 r2 ]
+[v _polarity `E60 ~T0 @X0 1 r3 ]
+[v _debounce_ticks `uc ~T0 @X0 1 r4 ]
+"4
+[f ]
+"5
+[e = . *U _btn 0 _gpio ]
+"6
+[e = . *U _btn 1 _polarity ]
+"7
+[e = . *U _btn 2 . `E64 0 ]
+"8
+[e = . *U _btn 3 . `E64 0 ]
+"9
+[e = . *U _btn 4 -> -> 0 `i `uc ]
+"10
+[e = . *U _btn 5 _debounce_ticks ]
+"11
+[e = . *U _btn 6 . `E68 0 ]
+"13
+[e ( _gpio_init (2 , . *U _btn 0 . `E42 1 ]
+"14
+[e :UE 3 ]
+}
+"16
+[v _button_update `(v ~T0 @X0 1 ef1`*S2 ]
+"17
+{
+[e :U _button_update ]
+"16
+[v _btn `*S2 ~T0 @X0 1 r1 ]
+"17
+[f ]
+"18
+[v _state `E64 ~T0 @X0 1 a ]
+"19
+[e $ ! == -> . *U _btn 1 `ui -> . `E60 1 `ui 5  ]
+"20
+{
+"21
+[e = _state -> ? == -> ( _gpio_read (1 . *U _btn 0 `ui -> . `E46 1 `ui : . `E64 1 . `E64 0 `E64 ]
+"22
+}
+[e $U 6  ]
+"23
+[e :U 5 ]
+"24
+{
+"25
+[e = _state -> ? == -> ( _gpio_read (1 . *U _btn 0 `ui -> . `E46 1 `ui : . `E64 0 . `E64 1 `E64 ]
+"26
+}
+[e :U 6 ]
+"28
+[e $ ! == -> _state `ui -> . *U _btn 2 `ui 7  ]
+"29
+{
+"30
+[e = . *U _btn 4 -> -> 0 `i `uc ]
+"31
+}
+[e $U 8  ]
+"32
+[e :U 7 ]
+{
+"33
+[e ++ . *U _btn 4 -> -> 1 `i `uc ]
+"34
+[e $ ! >= -> . *U _btn 4 `i -> . *U _btn 5 `i 9  ]
+"35
+{
+"36
+[e = . *U _btn 3 . *U _btn 2 ]
+"37
+[e = . *U _btn 2 _state ]
+"39
+[e $ ! && == -> . *U _btn 3 `ui -> . `E64 0 `ui == -> . *U _btn 2 `ui -> . `E64 1 `ui 10  ]
+"40
+{
+"41
+[e = . *U _btn 6 . `E68 1 ]
+"42
+}
+[e $U 11  ]
+"43
+[e :U 10 ]
+[e $ ! && == -> . *U _btn 3 `ui -> . `E64 1 `ui == -> . *U _btn 2 `ui -> . `E64 0 `ui 12  ]
+"44
+{
+"45
+[e = . *U _btn 6 . `E68 2 ]
+"46
+}
+[e :U 12 ]
+[e :U 11 ]
+"47
+[e = . *U _btn 4 -> -> 0 `i `uc ]
+"48
+}
+[e :U 9 ]
+"49
+}
+[e :U 8 ]
+"50
+[e :UE 4 ]
+}
+"52
+[v _button_get_event `(E68 ~T0 @X0 1 ef1`*S2 ]
+"53
+{
+[e :U _button_get_event ]
+"52
+[v _btn `*S2 ~T0 @X0 1 r1 ]
+"53
+[f ]
+"54
+[v _event `E68 ~T0 @X0 1 a ]
+[e = _event . *U _btn 6 ]
+"55
+[e = . *U _btn 6 . `E68 0 ]
+"56
+[e ) _event ]
+[e $UE 13  ]
+"57
+[e :UE 13 ]
+}

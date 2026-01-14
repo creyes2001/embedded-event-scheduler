@@ -8,7 +8,9 @@ void button_init(button_t *btn, gpio_t *gpio,button_polarity_e polarity,uint8_t 
 	btn->last_state = BUTTON_RELEASED;
 	btn->debounce_cnt = 0;
 	btn->debounce_ticks = debounce_ticks;
-	btn->evnet = BUTTON_EVENT_NONE;
+	btn->event = BUTTON_EVENT_NONE;
+
+	gpio_init(btn->gpio,GPIO_INPUT);
 }
 
 void button_update(button_t *btn)

@@ -12,34 +12,42 @@
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
 $build/bin/button_event.o
-cinit CODE 0 B0C B0C 5A 1 2
-intcode_body CODE 0 C16 C16 4E 1 2
-text0 CODE 0 A34 A34 6C 1 2
-text1 CODE 0 D48 D48 4 1 2
-text2 CODE 0 CF4 CF4 1A 1 2
-text3 CODE 0 D26 D26 A 1 2
-text4 CODE 0 9C6 9C6 6E 1 2
-text5 CODE 0 D0E D0E C 1 2
-text6 CODE 0 D1A D1A C 1 2
-text7 CODE 0 C9E C9E 38 1 2
-text8 CODE 0 BC0 BC0 56 1 2
-text9 CODE 0 B66 B66 5A 1 2
-text10 CODE 0 C64 C64 3A 1 2
-text11 CODE 0 AA0 AA0 6C 1 2
-text12 CODE 0 802 802 A4 1 2
-text13 CODE 0 8A6 8A6 A4 1 2
-text14 CODE 0 D42 D42 6 1 2
-text16 CODE 0 D30 D30 A 1 2
-text17 CODE 0 94A 94A 7C 1 2
-idataCOMRAM CODE 0 CD6 CD6 1E 1 1
-cstackCOMRAM COMRAM 1 44 44 11 1 1
-cstackBANK0 BANK0 1 60 60 9 1 1
+cinit CODE 0 D30 D30 5A 1 2
+intcode_body CODE 0 EEE EEE 4E 1 2
+text0 CODE 0 D8A D8A 5A 1 2
+text1 CODE 0 112C 112C 4 1 2
+text2 CODE 0 10DA 10DA 1A 1 2
+text3 CODE 0 110A 110A A 1 2
+text4 CODE 0 BE8 BE8 6E 1 2
+text5 CODE 0 100E 100E 3C 1 2
+text6 CODE 0 F3C F3C 48 1 2
+text7 CODE 0 F84 F84 48 1 2
+text8 CODE 0 802 802 184 1 2
+text9 CODE 0 DE4 DE4 5A 1 2
+text10 CODE 0 10BC 10BC 1E 1 2
+text11 CODE 0 1084 1084 38 1 2
+text12 CODE 0 FCC FCC 42 1 2
+text13 CODE 0 986 986 AE 1 2
+text14 CODE 0 E98 E98 56 1 2
+text15 CODE 0 E3E E3E 5A 1 2
+text16 CODE 0 1126 1126 6 1 2
+text17 CODE 0 CC4 CC4 6C 1 2
+text18 CODE 0 10F4 10F4 C 1 2
+text19 CODE 0 104A 104A 3A 1 2
+text20 CODE 0 C56 C56 6E 1 2
+text21 CODE 0 A34 A34 9C 1 2
+text22 CODE 0 AD0 AD0 9C 1 2
+text24 CODE 0 1114 1114 A 1 2
+text25 CODE 0 B6C B6C 7C 1 2
+idataCOMRAM CODE 0 1100 1100 A 1 1
+cstackCOMRAM COMRAM 1 39 39 12 1 1
+cstackBANK0 BANK0 1 60 60 B 1 1
 intcode CODE 0 8 8 6 1 2
 smallconst SMALLCONST 0 800 800 2 1 2
-idataBANK0 CODE 0 D3A D3A 7 1 1
-dataBANK0 BANK0 1 69 69 7 1 1
-dataCOMRAM COMRAM 1 26 26 1E 1 1
-bssCOMRAM COMRAM 1 2 2 24 1 1
+idataBANK0 CODE 0 111E 111E 7 1 1
+dataBANK0 BANK0 1 6B 6B 7 1 1
+dataCOMRAM COMRAM 1 4B 4B A 1 1
+bssCOMRAM COMRAM 1 2 2 37 1 1
 config CONFIG 4 300000 300000 8 1 1
 $build/bin/startup.o
 init CODE 0 E E 4 1 2
@@ -51,9 +59,9 @@ config CONFIG 4 300000 300000 8 1 1
 #    <class name> <range> <delta>
 # Addresses given in the range are in hexadecimal and units of delta.
 %UNUSED
-RAM 70-7FF 1
+RAM 72-7FF 1
 SFR F60-FFF 1
-BANK0 70-FF 1
+BANK0 72-FF 1
 BANK1 100-1FF 1
 BANK2 200-2FF 1
 BANK3 300-3FF 1
@@ -63,23 +71,23 @@ BANK6 600-6FF 1
 BANK7 700-7FF 1
 CONST 4-7 1
 CONST 12-7FF 1
-CONST D41-D41 1
-CONST D4C-7FFF 1
+CONST 1125-1125 1
+CONST 1130-7FFF 1
 IDLOC 200000-200007 1
-SMALLCONST D41-D41 1
-SMALLCONST D4C-7FFF 1
+SMALLCONST 1125-1125 1
+SMALLCONST 1130-7FFF 1
 CODE 4-7 1
 CODE 12-7FF 1
-CODE D41-D41 1
-CODE D4C-7FFF 1
+CODE 1125-1125 1
+CODE 1130-7FFF 1
 BIGRAM 55-5F 1
-BIGRAM 70-7FF 1
+BIGRAM 72-7FF 1
 BIGSFR F60-FFF 1
 COMRAM 55-5F 1
 CONFIG 300008-30000D 1
 EEDATA F00000-F000FF 1
-MEDIUMCONST D41-D41 1
-MEDIUMCONST D4C-7FFF 1
+MEDIUMCONST 1125-1125 1
+MEDIUMCONST 1130-7FFF 1
 # %LINETAB Section
 # This section enumerates the file/line to address mappings.
 # The beginning of the section is indicated by %LINETAB.
@@ -94,166 +102,253 @@ MEDIUMCONST D4C-7FFF 1
 # All other numeric values are in decimal.
 %LINETAB
 $build/bin/button_event.o
-8 intcode CODE >3676:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-8 intcode CODE >52:/home/reyes/embedded/driver_test/button_event/main.c
-94A text17 CODE >33:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-94A text17 CODE >36:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-950 text17 CODE >38:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-962 text17 CODE >39:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-990 text17 CODE >41:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-9A0 text17 CODE >42:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-9B0 text17 CODE >44:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-9C4 text17 CODE >45:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-D30 text16 CODE >30:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-D30 text16 CODE >32:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-D34 text16 CODE >33:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-D38 text16 CODE >34:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-C16 intcode_body CODE >52:/home/reyes/embedded/driver_test/button_event/main.c
-C30 intcode_body CODE >54:/home/reyes/embedded/driver_test/button_event/main.c
-C3E intcode_body CODE >56:/home/reyes/embedded/driver_test/button_event/main.c
-C42 intcode_body CODE >57:/home/reyes/embedded/driver_test/button_event/main.c
-C46 intcode_body CODE >58:/home/reyes/embedded/driver_test/button_event/main.c
-C48 intcode_body CODE >60:/home/reyes/embedded/driver_test/button_event/main.c
-D42 text14 CODE >4:/home/reyes/embedded/driver_test/button_event/src/interrupts.c
-D42 text14 CODE >6:/home/reyes/embedded/driver_test/button_event/src/interrupts.c
-D44 text14 CODE >7:/home/reyes/embedded/driver_test/button_event/src/interrupts.c
-D46 text14 CODE >8:/home/reyes/embedded/driver_test/button_event/src/interrupts.c
-8A6 text13 CODE >4:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
-8A6 text13 CODE >6:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
-8B6 text13 CODE >8:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
-8FA text13 CODE >9:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
-8FE text13 CODE >12:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
-948 text13 CODE >14:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
-802 text12 CODE >16:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
-802 text12 CODE >18:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
-812 text12 CODE >20:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
-856 text12 CODE >21:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
-85A text12 CODE >24:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
-8A4 text12 CODE >26:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
-AA0 text11 CODE >10:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-AA0 text11 CODE >14:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-AAE text11 CODE >16:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-AC8 text11 CODE >18:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-ADE text11 CODE >19:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-AE2 text11 CODE >22:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-AF8 text11 CODE >25:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-B0A text11 CODE >26:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-C64 text10 CODE >3:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-C64 text10 CODE >5:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-C78 text10 CODE >6:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-C86 text10 CODE >7:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-C9C text10 CODE >8:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-B66 text9 CODE >21:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-B66 text9 CODE >23:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-B76 text9 CODE >25:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-B8A text9 CODE >26:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-B9E text9 CODE >27:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-BAE text9 CODE >28:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-BBC text9 CODE >30:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-BBE text9 CODE >31:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-BC0 text8 CODE >8:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-BC0 text8 CODE >11:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-BC2 text8 CODE >13:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-BD2 text8 CODE >14:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-BE2 text8 CODE >15:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-BF2 text8 CODE >16:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-C00 text8 CODE >17:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-C12 text8 CODE >18:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-C14 text8 CODE >19:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-C9E text7 CODE >28:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-C9E text7 CODE >30:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-CAE text7 CODE >31:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-CBE text7 CODE >33:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-CC0 text7 CODE >34:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-CC4 text7 CODE >37:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-CC8 text7 CODE >39:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-CD4 text7 CODE >40:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
-D1A text6 CODE >67:/home/reyes/embedded/driver_test/button_event/main.c
-D1A text6 CODE >69:/home/reyes/embedded/driver_test/button_event/main.c
-D24 text6 CODE >70:/home/reyes/embedded/driver_test/button_event/main.c
-D0E text5 CODE >62:/home/reyes/embedded/driver_test/button_event/main.c
-D0E text5 CODE >64:/home/reyes/embedded/driver_test/button_event/main.c
-D18 text5 CODE >65:/home/reyes/embedded/driver_test/button_event/main.c
-9C6 text4 CODE >47:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-9C6 text4 CODE >50:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-9CE text4 CODE >52:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-9EA text4 CODE >54:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-9F8 text4 CODE >55:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-A1C text4 CODE >57:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-A32 text4 CODE >58:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
-D26 text3 CODE >30:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-D26 text3 CODE >32:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-D2A text3 CODE >33:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-D2E text3 CODE >34:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-CF4 text2 CODE >6:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-CF4 text2 CODE >8:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-CF6 text2 CODE >9:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-CF8 text2 CODE >10:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-CFA text2 CODE >11:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-CFC text2 CODE >12:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-D04 text2 CODE >14:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-D08 text2 CODE >16:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-D0A text2 CODE >17:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-D0C text2 CODE >18:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-D48 text1 CODE >20:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-D48 text1 CODE >22:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-D4A text1 CODE >23:/home/reyes/embedded/driver_test/button_event/src/timer0.c
-A34 text0 CODE >73:/home/reyes/embedded/driver_test/button_event/main.c
-A34 text0 CODE >75:/home/reyes/embedded/driver_test/button_event/main.c
-A3E text0 CODE >76:/home/reyes/embedded/driver_test/button_event/main.c
-A48 text0 CODE >77:/home/reyes/embedded/driver_test/button_event/main.c
-A52 text0 CODE >78:/home/reyes/embedded/driver_test/button_event/main.c
-A5E text0 CODE >80:/home/reyes/embedded/driver_test/button_event/main.c
-A62 text0 CODE >81:/home/reyes/embedded/driver_test/button_event/main.c
-A66 text0 CODE >82:/home/reyes/embedded/driver_test/button_event/main.c
-A6A text0 CODE >84:/home/reyes/embedded/driver_test/button_event/main.c
-A6E text0 CODE >86:/home/reyes/embedded/driver_test/button_event/main.c
-A82 text0 CODE >87:/home/reyes/embedded/driver_test/button_event/main.c
-A94 text0 CODE >90:/home/reyes/embedded/driver_test/button_event/main.c
-B0C cinit CODE >1628:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B0C cinit CODE >1630:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B0C cinit CODE >1633:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B0C cinit CODE >1693:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B0E cinit CODE >1694:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B10 cinit CODE >1695:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B12 cinit CODE >1696:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B14 cinit CODE >1697:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B16 cinit CODE >1698:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B18 cinit CODE >1699:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B1C cinit CODE >1700:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B20 cinit CODE >1701:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B20 cinit CODE >1702:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B22 cinit CODE >1703:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B26 cinit CODE >1704:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B28 cinit CODE >1705:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B2A cinit CODE >1706:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B2C cinit CODE >1710:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B2E cinit CODE >1711:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B30 cinit CODE >1712:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B32 cinit CODE >1713:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B34 cinit CODE >1714:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B36 cinit CODE >1715:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B38 cinit CODE >1716:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B3C cinit CODE >1717:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B40 cinit CODE >1718:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B40 cinit CODE >1719:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B42 cinit CODE >1720:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B46 cinit CODE >1721:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B48 cinit CODE >1722:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B4A cinit CODE >1723:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B4C cinit CODE >1727:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B50 cinit CODE >1728:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B52 cinit CODE >1729:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B52 cinit CODE >1730:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B54 cinit CODE >1731:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B56 cinit CODE >1732:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B58 cinit CODE >1738:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B58 cinit CODE >1740:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B5A cinit CODE >1741:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B5C cinit CODE >1743:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B5E cinit CODE >1744:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B60 cinit CODE >1745:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
-B62 cinit CODE >1746:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+8 intcode CODE >33:/home/reyes/embedded/driver_test/button_event/app/main.c
+8 intcode CODE >4927:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+B6C text25 CODE >33:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+B6C text25 CODE >36:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+B72 text25 CODE >38:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+B84 text25 CODE >39:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+BB2 text25 CODE >41:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+BC2 text25 CODE >42:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+BD2 text25 CODE >44:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+BE6 text25 CODE >45:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+1114 text24 CODE >30:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+1114 text24 CODE >32:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+1118 text24 CODE >33:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+111C text24 CODE >34:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+EEE intcode_body CODE >33:/home/reyes/embedded/driver_test/button_event/app/main.c
+F08 intcode_body CODE >35:/home/reyes/embedded/driver_test/button_event/app/main.c
+F16 intcode_body CODE >37:/home/reyes/embedded/driver_test/button_event/app/main.c
+F1A intcode_body CODE >38:/home/reyes/embedded/driver_test/button_event/app/main.c
+F1E intcode_body CODE >39:/home/reyes/embedded/driver_test/button_event/app/main.c
+F20 intcode_body CODE >41:/home/reyes/embedded/driver_test/button_event/app/main.c
+AD0 text22 CODE >4:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+AD0 text22 CODE >6:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+AE0 text22 CODE >8:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+B20 text22 CODE >9:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+B24 text22 CODE >12:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+B6A text22 CODE >14:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+A34 text21 CODE >16:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+A34 text21 CODE >18:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+A44 text21 CODE >20:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+A84 text21 CODE >21:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+A88 text21 CODE >24:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+ACE text21 CODE >26:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+C56 text20 CODE >10:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+C56 text20 CODE >14:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+C66 text20 CODE >16:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+C80 text20 CODE >18:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+C96 text20 CODE >19:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+C9A text20 CODE >22:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+CB0 text20 CODE >25:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+CC2 text20 CODE >26:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+104A text19 CODE >3:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+104A text19 CODE >5:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+105E text19 CODE >6:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+106C text19 CODE >7:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+1082 text19 CODE >8:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+10F4 text18 CODE >7:/home/reyes/embedded/driver_test/button_event/app/app.c
+10F4 text18 CODE >9:/home/reyes/embedded/driver_test/button_event/app/app.c
+10FE text18 CODE >10:/home/reyes/embedded/driver_test/button_event/app/app.c
+CC4 text17 CODE >3:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+CC4 text17 CODE >5:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+CD0 text17 CODE >6:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+CDE text17 CODE >7:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+CEA text17 CODE >8:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+CF6 text17 CODE >9:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+D02 text17 CODE >10:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+D10 text17 CODE >11:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+D1C text17 CODE >13:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+D2E text17 CODE >14:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+1126 text16 CODE >4:/home/reyes/embedded/driver_test/button_event/src/interrupts.c
+1126 text16 CODE >6:/home/reyes/embedded/driver_test/button_event/src/interrupts.c
+1128 text16 CODE >7:/home/reyes/embedded/driver_test/button_event/src/interrupts.c
+112A text16 CODE >8:/home/reyes/embedded/driver_test/button_event/src/interrupts.c
+E3E text15 CODE >21:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+E3E text15 CODE >23:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+E4E text15 CODE >25:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+E62 text15 CODE >26:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+E76 text15 CODE >27:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+E86 text15 CODE >28:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+E94 text15 CODE >30:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+E96 text15 CODE >31:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+E98 text14 CODE >8:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+E98 text14 CODE >11:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+E9A text14 CODE >13:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+EAA text14 CODE >14:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+EBA text14 CODE >15:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+ECA text14 CODE >16:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+ED8 text14 CODE >17:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+EEA text14 CODE >18:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+EEC text14 CODE >19:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+986 text13 CODE >7:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+986 text13 CODE >12:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+988 text13 CODE >13:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+996 text13 CODE >14:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+99E text13 CODE >15:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+9A2 text13 CODE >17:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+9B0 text13 CODE >18:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+9B8 text13 CODE >19:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+9CA text13 CODE >20:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+9CE text13 CODE >21:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+9D2 text13 CODE >22:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+9D8 text13 CODE >23:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+9DA text13 CODE >21:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+9E8 text13 CODE >26:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+9FE text13 CODE >27:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+A06 text13 CODE >28:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+A0C text13 CODE >29:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+A12 text13 CODE >31:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+A22 text13 CODE >32:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+A2A text13 CODE >33:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+A32 text13 CODE >34:/opt/microchip/xc8/v3.10/pic/sources/c99/common/awmod.c
+FCC text12 CODE >28:/home/reyes/embedded/driver_test/button_event/src/event.c
+FCC text12 CODE >30:/home/reyes/embedded/driver_test/button_event/src/event.c
+FDE text12 CODE >32:/home/reyes/embedded/driver_test/button_event/src/event.c
+FE4 text12 CODE >35:/home/reyes/embedded/driver_test/button_event/src/event.c
+FF0 text12 CODE >36:/home/reyes/embedded/driver_test/button_event/src/event.c
+100A text12 CODE >37:/home/reyes/embedded/driver_test/button_event/src/event.c
+100C text12 CODE >38:/home/reyes/embedded/driver_test/button_event/src/event.c
+1084 text11 CODE >28:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+1084 text11 CODE >30:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+1094 text11 CODE >31:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+10A4 text11 CODE >33:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+10A6 text11 CODE >34:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+10AA text11 CODE >37:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+10AE text11 CODE >39:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+10BA text11 CODE >40:/home/reyes/embedded/driver_test/button_event/src/led_driver.c
+10BC text10 CODE >52:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+10BC text10 CODE >54:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+10CA text10 CODE >55:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+10D6 text10 CODE >56:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+10D8 text10 CODE >57:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+DE4 text9 CODE >28:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+DE4 text9 CODE >30:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+E34 text9 CODE >32:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+E3A text9 CODE >34:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+E3C text9 CODE >35:/home/reyes/embedded/driver_test/button_event/src/gpio_driver.c
+802 text8 CODE >16:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+802 text8 CODE >19:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+81C text8 CODE >21:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+842 text8 CODE >22:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+846 text8 CODE >25:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+86C text8 CODE >28:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+888 text8 CODE >30:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+894 text8 CODE >31:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+898 text8 CODE >33:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+8A4 text8 CODE >34:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+8CA text8 CODE >36:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+8E2 text8 CODE >37:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+8F0 text8 CODE >39:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+924 text8 CODE >41:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+932 text8 CODE >42:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+936 text8 CODE >43:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+96A text8 CODE >45:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+978 text8 CODE >46:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+978 text8 CODE >47:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+984 text8 CODE >50:/home/reyes/embedded/driver_test/button_event/src/button_driver.c
+F84 text7 CODE >15:/home/reyes/embedded/driver_test/button_event/src/event.c
+F88 text7 CODE >17:/home/reyes/embedded/driver_test/button_event/src/event.c
+FA4 text7 CODE >18:/home/reyes/embedded/driver_test/button_event/src/event.c
+FBA text7 CODE >23:/home/reyes/embedded/driver_test/button_event/src/event.c
+FC6 text7 CODE >24:/home/reyes/embedded/driver_test/button_event/src/event.c
+FCA text7 CODE >26:/home/reyes/embedded/driver_test/button_event/src/event.c
+F3C text6 CODE >44:/home/reyes/embedded/driver_test/button_event/app/main.c
+F3C text6 CODE >46:/home/reyes/embedded/driver_test/button_event/app/main.c
+F44 text6 CODE >48:/home/reyes/embedded/driver_test/button_event/app/main.c
+F50 text6 CODE >50:/home/reyes/embedded/driver_test/button_event/app/main.c
+F60 text6 CODE >52:/home/reyes/embedded/driver_test/button_event/app/main.c
+F66 text6 CODE >53:/home/reyes/embedded/driver_test/button_event/app/main.c
+F6A text6 CODE >54:/home/reyes/embedded/driver_test/button_event/app/main.c
+F7C text6 CODE >56:/home/reyes/embedded/driver_test/button_event/app/main.c
+F82 text6 CODE >58:/home/reyes/embedded/driver_test/button_event/app/main.c
+100E text5 CODE >12:/home/reyes/embedded/driver_test/button_event/app/app.c
+100E text5 CODE >14:/home/reyes/embedded/driver_test/button_event/app/app.c
+1016 text5 CODE >16:/home/reyes/embedded/driver_test/button_event/app/app.c
+101A text5 CODE >19:/home/reyes/embedded/driver_test/button_event/app/app.c
+1022 text5 CODE >20:/home/reyes/embedded/driver_test/button_event/app/app.c
+1026 text5 CODE >24:/home/reyes/embedded/driver_test/button_event/app/app.c
+1030 text5 CODE >24:/home/reyes/embedded/driver_test/button_event/app/app.c
+103E text5 CODE >24:/home/reyes/embedded/driver_test/button_event/app/app.c
+1048 text5 CODE >25:/home/reyes/embedded/driver_test/button_event/app/app.c
+BE8 text4 CODE >47:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+BE8 text4 CODE >50:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+BF0 text4 CODE >52:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+C0C text4 CODE >54:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+C1A text4 CODE >55:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+C3E text4 CODE >57:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+C54 text4 CODE >58:/home/reyes/embedded/driver_test/button_event/src/scheduler.c
+110A text3 CODE >30:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+110A text3 CODE >32:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+110E text3 CODE >33:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+1112 text3 CODE >34:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+10DA text2 CODE >6:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+10DA text2 CODE >8:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+10DC text2 CODE >9:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+10DE text2 CODE >10:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+10E0 text2 CODE >11:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+10E2 text2 CODE >12:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+10EA text2 CODE >14:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+10EE text2 CODE >16:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+10F0 text2 CODE >17:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+10F2 text2 CODE >18:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+112C text1 CODE >20:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+112C text1 CODE >22:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+112E text1 CODE >23:/home/reyes/embedded/driver_test/button_event/src/timer0.c
+D8A text0 CODE >60:/home/reyes/embedded/driver_test/button_event/app/main.c
+D8A text0 CODE >62:/home/reyes/embedded/driver_test/button_event/app/main.c
+DA0 text0 CODE >63:/home/reyes/embedded/driver_test/button_event/app/main.c
+DA4 text0 CODE >64:/home/reyes/embedded/driver_test/button_event/app/main.c
+DA8 text0 CODE >65:/home/reyes/embedded/driver_test/button_event/app/main.c
+DAC text0 CODE >66:/home/reyes/embedded/driver_test/button_event/app/main.c
+DB0 text0 CODE >68:/home/reyes/embedded/driver_test/button_event/app/main.c
+DB4 text0 CODE >70:/home/reyes/embedded/driver_test/button_event/app/main.c
+DC6 text0 CODE >71:/home/reyes/embedded/driver_test/button_event/app/main.c
+DD8 text0 CODE >74:/home/reyes/embedded/driver_test/button_event/app/main.c
+D30 cinit CODE >1600:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D30 cinit CODE >1602:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D30 cinit CODE >1605:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D30 cinit CODE >1650:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D32 cinit CODE >1651:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D34 cinit CODE >1652:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D36 cinit CODE >1653:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D38 cinit CODE >1654:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D3A cinit CODE >1655:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D3C cinit CODE >1656:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D40 cinit CODE >1657:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D44 cinit CODE >1658:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D44 cinit CODE >1659:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D46 cinit CODE >1660:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D4A cinit CODE >1661:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D4C cinit CODE >1662:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D4E cinit CODE >1663:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D50 cinit CODE >1667:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D52 cinit CODE >1668:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D54 cinit CODE >1669:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D56 cinit CODE >1670:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D58 cinit CODE >1671:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D5A cinit CODE >1672:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D5C cinit CODE >1673:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D60 cinit CODE >1674:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D64 cinit CODE >1675:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D64 cinit CODE >1676:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D66 cinit CODE >1677:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D6A cinit CODE >1678:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D6C cinit CODE >1679:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D6E cinit CODE >1680:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D70 cinit CODE >1684:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D74 cinit CODE >1685:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D76 cinit CODE >1686:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D76 cinit CODE >1687:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D78 cinit CODE >1688:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D7A cinit CODE >1689:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D7C cinit CODE >1695:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D7C cinit CODE >1697:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D7E cinit CODE >1698:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D80 cinit CODE >1700:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D82 cinit CODE >1701:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D84 cinit CODE >1702:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
+D86 cinit CODE >1703:/home/reyes/embedded/driver_test/button_event/build/bin/button_event.s
 $build/bin/startup.o
 E init CODE >101:/home/reyes/embedded/driver_test/button_event/build/bin/startup.s
 0 reset_vec CODE >66:/home/reyes/embedded/driver_test/button_event/build/bin/startup.s
@@ -271,81 +366,93 @@ E init CODE >101:/home/reyes/embedded/driver_test/button_event/build/bin/startup
 %SYMTAB
 __LdataBANK0 0 0 ABS 0 dataBANK0 build/bin/button_event.o
 __Lmediumconst 0 0 MEDIUMCONST 0 mediumconst build/bin/button_event.o
-__Hspace_0 D4C 0 ABS 0 - build/bin/button_event.o
-__Hspace_1 70 0 ABS 0 - build/bin/button_event.o
+__Hspace_0 1130 0 ABS 0 - build/bin/button_event.o
+__Hspace_1 72 0 ABS 0 - build/bin/button_event.o
 __Hspace_2 0 0 ABS 0 - build/bin/button_event.o
 __Hspace_4 600008 0 ABS 0 - build/bin/button_event.o
-_led_toggle C9E 0 CODE 0 text7 build/bin/button_event.o
+_led_toggle 1084 0 CODE 0 text11 build/bin/button_event.o
 __HidataBANK0 0 0 ABS 0 idataBANK0 build/bin/button_event.o
+__end_of_button_update 986 0 CODE 0 text8 build/bin/button_event.o
 __Hibigdata 0 0 CODE 0 ibigdata build/bin/button_event.o
 __mediumconst 800 0 SMALLCONST 0 smallconst build/bin/button_event.o
-_led_task0 D0E 0 CODE 0 text5 build/bin/button_event.o
-_led_task1 D1A 0 CODE 0 text6 build/bin/button_event.o
 __Heeprom_data 0 0 EEDATA 0 eeprom_data build/bin/button_event.o
-__end_of_scheduler_init C16 0 CODE 0 text8 build/bin/button_event.o
-__end_of_scheduler_tick 9C6 0 CODE 0 text17 build/bin/button_event.o
+__end_of_scheduler_init EEE 0 CODE 0 text14 build/bin/button_event.o
+__end_of_scheduler_tick BE8 0 CODE 0 text25 build/bin/button_event.o
 __L__absolute__ 0 0 ABS 0 __absolute__ build/bin/button_event.o
+__end_of_button_init D30 0 CODE 0 text17 build/bin/button_event.o
+__end_of_button_task F84 0 CODE 0 text6 build/bin/button_event.o
 __Lsmallconst 800 0 SMALLCONST 0 smallconst build/bin/button_event.o
 _LATB F8A 0 ABS 0 - build/bin/button_event.o
 _LATD F8C 0 ABS 0 - build/bin/button_event.o
 ___sp 0 0 STACK 2 stack build/bin/startup.o
-_led0 41 0 COMRAM 1 dataCOMRAM build/bin/button_event.o
-_led1 3E 0 COMRAM 1 dataCOMRAM build/bin/button_event.o
-_led2 3B 0 COMRAM 1 dataCOMRAM build/bin/button_event.o
-_main A34 0 CODE 0 text0 build/bin/button_event.o
+_btn1 32 0 COMRAM 1 bssCOMRAM build/bin/button_event.o
+_head 30 0 COMRAM 1 bssCOMRAM build/bin/button_event.o
+_led1 52 0 COMRAM 1 dataCOMRAM build/bin/button_event.o
+_main D8A 0 CODE 0 text0 build/bin/button_event.o
+_tail 2F 0 COMRAM 1 bssCOMRAM build/bin/button_event.o
 btemp 1 0 ABS 0 - build/bin/button_event.o
 ___stack_hi 0 0 STACK 2 stack build/bin/startup.o
 ___stack_lo 0 0 STACK 2 stack build/bin/startup.o
 start E 0 CODE 0 init build/bin/startup.o
-led_toggle@state 66 0 BANK0 1 cstackBANK0 build/bin/button_event.o
+led_toggle@state 65 0 BANK0 1 cstackBANK0 build/bin/button_event.o
+_event_push F84 0 CODE 0 text7 build/bin/button_event.o
 __HbssCOMRAM 0 0 ABS 0 bssCOMRAM build/bin/button_event.o
+button_init@btn 60 0 BANK0 1 cstackBANK0 build/bin/button_event.o
+event_push@next 61 0 BANK0 1 cstackBANK0 build/bin/button_event.o
 __LidataBANK0 0 0 ABS 0 idataBANK0 build/bin/button_event.o
 __Hpowerup 0 0 CODE 0 powerup build/bin/button_event.o
-__end_of_scheduler_add_task BC0 0 CODE 0 text9 build/bin/button_event.o
+__end_of_scheduler_add_task E98 0 CODE 0 text15 build/bin/button_event.o
+___awmod@sign 49 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
 _T0CONbits FD5 0 ABS 0 - build/bin/button_event.o
 __HdataCOMRAM 0 0 ABS 0 dataCOMRAM build/bin/button_event.o
+__end_of_button_get_event 10DA 0 CODE 0 text10 build/bin/button_event.o
 __accesstop 60 0 ABS 0 - build/bin/startup.o
 intlevel0 0 0 CODE 0 text build/bin/startup.o
 intlevel1 0 0 CODE 0 text build/bin/startup.o
 intlevel2 0 0 CODE 0 text build/bin/startup.o
 intlevel3 0 0 CODE 0 text build/bin/startup.o
 __LbssCOMRAM 0 0 ABS 0 bssCOMRAM build/bin/button_event.o
-__end_of_timer0_start D4C 0 CODE 0 text1 build/bin/button_event.o
+__end_of_timer0_start 1130 0 CODE 0 text1 build/bin/button_event.o
 __LnvFARRAM 0 0 FARRAM 0 nvFARRAM build/bin/button_event.o
-__end_of_led_toggle CD6 0 CODE 0 text7 build/bin/button_event.o
-_timer0_init CF4 0 CODE 0 text2 build/bin/button_event.o
-_led_init C64 0 CODE 0 text10 build/bin/button_event.o
+__end_of_led_toggle 10BC 0 CODE 0 text11 build/bin/button_event.o
+_timer0_init 10DA 0 CODE 0 text2 build/bin/button_event.o
+_led_init 104A 0 CODE 0 text19 build/bin/button_event.o
 __Hifardata 0 0 CODE 0 ifardata build/bin/button_event.o
 __Hclrtext 0 0 ABS 0 clrtext build/bin/button_event.o
-__pidataCOMRAM CD6 0 CODE 0 idataCOMRAM build/bin/button_event.o
-_gpio_write 802 0 CODE 0 text12 build/bin/button_event.o
-__end_of_led_init C9E 0 CODE 0 text10 build/bin/button_event.o
-_scheduler_add_task B66 0 CODE 0 text9 build/bin/button_event.o
+__pidataCOMRAM 1100 0 CODE 0 idataCOMRAM build/bin/button_event.o
+_gpio_write A34 0 CODE 0 text21 build/bin/button_event.o
+__end_of_led_init 1084 0 CODE 0 text19 build/bin/button_event.o
+_scheduler_add_task E3E 0 CODE 0 text15 build/bin/button_event.o
+gpio_read@gpio 44 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
+__end_of_event_push FCC 0 CODE 0 text7 build/bin/button_event.o
 ___inthi_sp 0 0 STACK 2 stack build/bin/startup.o
 ___intlo_sp 0 0 STACK 2 stack build/bin/startup.o
 __LdataCOMRAM 0 0 ABS 0 dataCOMRAM build/bin/button_event.o
 __Hintcode_body 0 0 ABS 0 intcode_body build/bin/button_event.o
-__end_of_led_set B0C 0 CODE 0 text11 build/bin/button_event.o
-__end_of_enable_gi D48 0 CODE 0 text14 build/bin/button_event.o
+__end_of_led_set CC4 0 CODE 0 text20 build/bin/button_event.o
+__end_of_enable_gi 112C 0 CODE 0 text16 build/bin/button_event.o
 __Lintsave_regs 0 0 BIGRAM 1 intsave_regs build/bin/button_event.o
 __Hmediumconst 0 0 MEDIUMCONST 0 mediumconst build/bin/button_event.o
 __Hintcodelo 18 0 CODE 0 intcodelo build/bin/button_event.o
-scheduler_init@i 4F 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
-_timer0_reload D26 0 CODE 0 text3 build/bin/button_event.o
-_enable_gi D42 0 CODE 0 text14 build/bin/button_event.o
+scheduler_init@i 44 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
+__end_of___awmod A34 0 CODE 0 text13 build/bin/button_event.o
+_timer0_reload 110A 0 CODE 0 text3 build/bin/button_event.o
+_enable_gi 1126 0 CODE 0 text16 build/bin/button_event.o
 __LidataCOMRAM 0 0 ABS 0 idataCOMRAM build/bin/button_event.o
-_scheduler_run 9C6 0 CODE 0 text4 build/bin/button_event.o
+_scheduler_run BE8 0 CODE 0 text4 build/bin/button_event.o
 __Lintcodelo 18 0 CODE 0 intcodelo build/bin/button_event.o
-__end_of_gpio_write 8A6 0 CODE 0 text12 build/bin/button_event.o
-start_initialization B0C 0 CODE 0 cinit build/bin/button_event.o
+__end_of_gpio_write AD0 0 CODE 0 text21 build/bin/button_event.o
+start_initialization D30 0 CODE 0 cinit build/bin/button_event.o
 __HnvFARRAM 0 0 FARRAM 0 nvFARRAM build/bin/button_event.o
-led_set@gpio_level 54 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
+led_set@gpio_level 63 0 BANK0 1 cstackBANK0 build/bin/button_event.o
 ___rparam_used 1 0 ABS 0 - build/bin/button_event.o
-scheduler_tick@i 48 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
-led_toggle@led 65 0 BANK0 1 cstackBANK0 build/bin/button_event.o
+scheduler_tick@i 3D 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
+led_toggle@led 64 0 BANK0 1 cstackBANK0 build/bin/button_event.o
 __pcstackBANK0 60 0 BANK0 1 cstackBANK0 build/bin/button_event.o
 isa$xinst 0 0 ABS 0 - build/bin/startup.o
-led_init@led 65 0 BANK0 1 cstackBANK0 build/bin/button_event.o
+button_update@btn 4A 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
+led_init@led 64 0 BANK0 1 cstackBANK0 build/bin/button_event.o
+button_get_event@event 45 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
 __Hbank0 0 0 ABS 0 bank0 build/bin/button_event.o
 __Hbank1 0 0 ABS 0 bank1 build/bin/button_event.o
 __Hbank2 0 0 ABS 0 bank2 build/bin/button_event.o
@@ -372,11 +479,14 @@ __Htext6 0 0 ABS 0 text6 build/bin/button_event.o
 __Htext7 0 0 ABS 0 text7 build/bin/button_event.o
 __Htext8 0 0 ABS 0 text8 build/bin/button_event.o
 __Htext9 0 0 ABS 0 text9 build/bin/button_event.o
+button_task@bev 63 0 BANK0 1 cstackBANK0 build/bin/button_event.o
+_app_init 10F4 0 CODE 0 text18 build/bin/button_event.o
+_app_task 100E 0 CODE 0 text5 build/bin/button_event.o
 __Hbigbss 0 0 BIGRAM 1 bigbss build/bin/button_event.o
 __Hbigram 0 0 ABS 0 bigram build/bin/button_event.o
 __Hbigsfr 0 0 ABS 0 bigsfr build/bin/button_event.o
 __smallconst 800 0 SMALLCONST 0 smallconst build/bin/button_event.o
-gpio_init@dir 50 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
+gpio_init@dir 45 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
 __Hcomram 0 0 ABS 0 comram build/bin/button_event.o
 __Hconfig 300008 0 CONFIG 4 config build/bin/button_event.o
 __Lbank0 0 0 ABS 0 bank0 build/bin/button_event.o
@@ -391,6 +501,8 @@ __Lcinit 0 0 ABS 0 cinit build/bin/button_event.o
 __Lconst 0 0 CONST 0 const build/bin/button_event.o
 __Lidata 0 0 CODE 0 idata build/bin/button_event.o
 __Lidloc 0 0 ABS 0 idloc build/bin/button_event.o
+__end_of_app_init 1100 0 CODE 0 text18 build/bin/button_event.o
+__end_of_app_task 104A 0 CODE 0 text5 build/bin/button_event.o
 __Lnvbit 0 0 COMRAM 1 nvbit build/bin/button_event.o
 __Lparam 0 0 COMRAM 1 rparam build/bin/button_event.o
 __Lrdata 0 0 COMRAM 1 rdata build/bin/button_event.o
@@ -405,6 +517,7 @@ __Ltext6 0 0 ABS 0 text6 build/bin/button_event.o
 __Ltext7 0 0 ABS 0 text7 build/bin/button_event.o
 __Ltext8 0 0 ABS 0 text8 build/bin/button_event.o
 __Ltext9 0 0 ABS 0 text9 build/bin/button_event.o
+event_pop@ev 4A 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
 __Hfarbss 0 0 FARRAM 0 farbss build/bin/button_event.o
 __Lintcode_body 0 0 ABS 0 intcode_body build/bin/button_event.o
 _INTCONbits FF2 0 ABS 0 - build/bin/button_event.o
@@ -427,53 +540,71 @@ __Ltext 0 0 ABS 0 text build/bin/button_event.o
 __LcstackBANK0 0 0 ABS 0 cstackBANK0 build/bin/button_event.o
 int$flags 1 0 ABS 0 - build/bin/button_event.o
 __HcstackCOMRAM 0 0 ABS 0 cstackCOMRAM build/bin/button_event.o
+button_init@polarity 62 0 BANK0 1 cstackBANK0 build/bin/button_event.o
 __Hintret 0 0 ABS 0 intret build/bin/button_event.o
-led_set@led 51 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
+led_set@led 60 0 BANK0 1 cstackBANK0 build/bin/button_event.o
 __Hirdata 0 0 CODE 0 irdata build/bin/button_event.o
-__S0 D4C 0 ABS 0 - build/bin/button_event.o
-__S1 70 0 ABS 0 - build/bin/button_event.o
+__S0 1130 0 ABS 0 - build/bin/button_event.o
+__S1 72 0 ABS 0 - build/bin/button_event.o
 __S4 0 0 ABS 0 - build/bin/button_event.o
 __S5 0 0 ABS 0 - build/bin/button_event.o
 _isr 8 0 CODE 0 intcode build/bin/button_event.o
-__end_of_gpio_init 94A 0 CODE 0 text13 build/bin/button_event.o
-_button 26 0 COMRAM 1 dataCOMRAM build/bin/button_event.o
+__end_of_gpio_init B6C 0 CODE 0 text22 build/bin/button_event.o
+__end_of_gpio_read E3E 0 CODE 0 text9 build/bin/button_event.o
 __HidataCOMRAM 0 0 ABS 0 idataCOMRAM build/bin/button_event.o
 __Lbigdata 0 0 BIGRAM 1 bigdata build/bin/button_event.o
 __Hnvrram 0 0 COMRAM 1 nvrram build/bin/button_event.o
-__end_of_timer0_reload D30 0 CODE 0 text3 build/bin/button_event.o
-__end_of_isr C64 0 CODE 0 intcode_body build/bin/button_event.o
-int_func C16 0 CODE 0 intcode_body build/bin/button_event.o
-__end_of_timer0_init D0E 0 CODE 0 text2 build/bin/button_event.o
-_gpio_init 8A6 0 CODE 0 text13 build/bin/button_event.o
-_gpio_led0 34 0 COMRAM 1 dataCOMRAM build/bin/button_event.o
-_gpio_led1 2D 0 COMRAM 1 dataCOMRAM build/bin/button_event.o
-_gpio_led2 69 0 BANK0 1 dataBANK0 build/bin/button_event.o
+__end_of_timer0_reload 1114 0 CODE 0 text3 build/bin/button_event.o
+__end_of_isr F3C 0 CODE 0 intcode_body build/bin/button_event.o
+int_func EEE 0 CODE 0 intcode_body build/bin/button_event.o
+__end_of_timer0_init 10F4 0 CODE 0 text2 build/bin/button_event.o
+_gpio_init AD0 0 CODE 0 text22 build/bin/button_event.o
+_gpio_led1 6B 0 BANK0 1 dataBANK0 build/bin/button_event.o
+_gpio_read DE4 0 CODE 0 text9 build/bin/button_event.o
 __Lintentry 0 0 ABS 0 intentry build/bin/button_event.o
 __Hramtop 800 0 RAM 0 ramtop build/bin/button_event.o
 __Hrparam 0 0 COMRAM 1 rparam build/bin/button_event.o
-__pdataBANK0 69 0 BANK0 1 dataBANK0 build/bin/button_event.o
+__pdataBANK0 6B 0 BANK0 1 dataBANK0 build/bin/button_event.o
 __activetblptr 2 0 ABS 0 - build/bin/button_event.o
-__end_of_scheduler_run A34 0 CODE 0 text4 build/bin/button_event.o
-_task_count 25 0 COMRAM 1 bssCOMRAM build/bin/button_event.o
+__end_of_scheduler_run C56 0 CODE 0 text4 build/bin/button_event.o
+_task_count 31 0 COMRAM 1 bssCOMRAM build/bin/button_event.o
 __Hstruct 0 0 COMRAM 1 struct build/bin/button_event.o
-gpio_write@level 50 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
-_led_set AA0 0 CODE 0 text11 build/bin/button_event.o
+gpio_write@level 45 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
+_led_set C56 0 CODE 0 text20 build/bin/button_event.o
 __Htext10 0 0 ABS 0 text10 build/bin/button_event.o
 __Htext11 0 0 ABS 0 text11 build/bin/button_event.o
 __Htext12 0 0 ABS 0 text12 build/bin/button_event.o
 __Htext13 0 0 ABS 0 text13 build/bin/button_event.o
 __Htext14 0 0 ABS 0 text14 build/bin/button_event.o
+__Htext15 0 0 ABS 0 text15 build/bin/button_event.o
 __Htext16 0 0 ABS 0 text16 build/bin/button_event.o
 __Htext17 0 0 ABS 0 text17 build/bin/button_event.o
+__Htext18 0 0 ABS 0 text18 build/bin/button_event.o
+__Htext19 0 0 ABS 0 text19 build/bin/button_event.o
+__Htext20 0 0 ABS 0 text20 build/bin/button_event.o
+__Htext21 0 0 ABS 0 text21 build/bin/button_event.o
+__Htext22 0 0 ABS 0 text22 build/bin/button_event.o
+__Htext24 0 0 ABS 0 text24 build/bin/button_event.o
+__Htext25 0 0 ABS 0 text25 build/bin/button_event.o
 _task_list 2 0 COMRAM 1 bssCOMRAM build/bin/button_event.o
-__ptext10 C64 0 CODE 0 text10 build/bin/button_event.o
-__ptext11 AA0 0 CODE 0 text11 build/bin/button_event.o
-__ptext12 802 0 CODE 0 text12 build/bin/button_event.o
-__ptext13 8A6 0 CODE 0 text13 build/bin/button_event.o
-__ptext14 D42 0 CODE 0 text14 build/bin/button_event.o
-__ptext16 D30 0 CODE 0 text16 build/bin/button_event.o
-__ptext17 94A 0 CODE 0 text17 build/bin/button_event.o
-__pintcode_body C16 0 CODE 0 intcode_body build/bin/button_event.o
+___awmod@counter 48 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
+__ptext10 10BC 0 CODE 0 text10 build/bin/button_event.o
+__ptext11 1084 0 CODE 0 text11 build/bin/button_event.o
+__ptext12 FCC 0 CODE 0 text12 build/bin/button_event.o
+__ptext13 986 0 CODE 0 text13 build/bin/button_event.o
+__ptext14 E98 0 CODE 0 text14 build/bin/button_event.o
+__ptext15 E3E 0 CODE 0 text15 build/bin/button_event.o
+__ptext16 1126 0 CODE 0 text16 build/bin/button_event.o
+__ptext17 CC4 0 CODE 0 text17 build/bin/button_event.o
+__ptext18 10F4 0 CODE 0 text18 build/bin/button_event.o
+__ptext19 104A 0 CODE 0 text19 build/bin/button_event.o
+__ptext20 C56 0 CODE 0 text20 build/bin/button_event.o
+__ptext21 A34 0 CODE 0 text21 build/bin/button_event.o
+__ptext22 AD0 0 CODE 0 text22 build/bin/button_event.o
+__ptext24 1114 0 CODE 0 text24 build/bin/button_event.o
+__ptext25 B6C 0 CODE 0 text25 build/bin/button_event.o
+___awmod 986 0 CODE 0 text13 build/bin/button_event.o
+__pintcode_body EEE 0 CODE 0 intcode_body build/bin/button_event.o
 __Lbigbss 0 0 BIGRAM 1 bigbss build/bin/button_event.o
 __Lbigram 0 0 ABS 0 bigram build/bin/button_event.o
 __Lbigsfr 0 0 ABS 0 bigsfr build/bin/button_event.o
@@ -481,6 +612,9 @@ __Lcomram 0 0 ABS 0 comram build/bin/button_event.o
 __Lconfig 0 0 CONFIG 4 config build/bin/button_event.o
 __Lsivt_hi 0 0 CODE 0 sivt_hi build/bin/button_event.o
 __Lsivt_lo 18 0 CODE 0 sivt_lo build/bin/button_event.o
+app_task@ev 68 0 BANK0 1 cstackBANK0 build/bin/button_event.o
+_button_init CC4 0 CODE 0 text17 build/bin/button_event.o
+_button_task F3C 0 CODE 0 text6 build/bin/button_event.o
 __Lfarbss 0 0 FARRAM 0 farbss build/bin/button_event.o
 ___inthi_stack_hi 0 0 STACK 2 stack build/bin/startup.o
 ___inthi_stack_lo 0 0 STACK 2 stack build/bin/startup.o
@@ -498,54 +632,73 @@ __Lspace_4 0 0 ABS 0 - build/bin/button_event.o
 __pbssCOMRAM 2 0 COMRAM 1 bssCOMRAM build/bin/button_event.o
 __HcstackBANK0 0 0 ABS 0 cstackBANK0 build/bin/button_event.o
 __LcstackCOMRAM 0 0 ABS 0 cstackCOMRAM build/bin/button_event.o
-end_of_initialization B58 0 CODE 0 cinit build/bin/button_event.o
-__end_ofi2_timer0_reload D3A 0 CODE 0 text16 build/bin/button_event.o
+_button1 4B 0 COMRAM 1 dataCOMRAM build/bin/button_event.o
+end_of_initialization D7C 0 CODE 0 cinit build/bin/button_event.o
+__end_ofi2_timer0_reload 111E 0 CODE 0 text24 build/bin/button_event.o
 __Lnvrram 0 0 COMRAM 1 nvrram build/bin/button_event.o
 __Hintentry 0 0 ABS 0 intentry build/bin/button_event.o
+_button_update 802 0 CODE 0 text8 build/bin/button_event.o
+?___awmod 44 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
 __Hreset_vec 4 0 CODE 0 reset_vec build/bin/button_event.o
+___awmod@dividend 44 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
 __Lramtop 800 0 RAM 0 ramtop build/bin/button_event.o
 __Lrparam 0 0 COMRAM 1 rparam build/bin/button_event.o
-__pcinit B0C 0 CODE 0 cinit build/bin/button_event.o
-__ptext0 A34 0 CODE 0 text0 build/bin/button_event.o
-__ptext1 D48 0 CODE 0 text1 build/bin/button_event.o
-__ptext2 CF4 0 CODE 0 text2 build/bin/button_event.o
-__ptext3 D26 0 CODE 0 text3 build/bin/button_event.o
-__ptext4 9C6 0 CODE 0 text4 build/bin/button_event.o
-__ptext5 D0E 0 CODE 0 text5 build/bin/button_event.o
-__ptext6 D1A 0 CODE 0 text6 build/bin/button_event.o
-__ptext7 C9E 0 CODE 0 text7 build/bin/button_event.o
-__ptext8 BC0 0 CODE 0 text8 build/bin/button_event.o
-__ptext9 B66 0 CODE 0 text9 build/bin/button_event.o
+__pcinit D30 0 CODE 0 cinit build/bin/button_event.o
+button_init@debounce_ticks 63 0 BANK0 1 cstackBANK0 build/bin/button_event.o
+__ptext0 D8A 0 CODE 0 text0 build/bin/button_event.o
+__ptext1 112C 0 CODE 0 text1 build/bin/button_event.o
+__ptext2 10DA 0 CODE 0 text2 build/bin/button_event.o
+__ptext3 110A 0 CODE 0 text3 build/bin/button_event.o
+__ptext4 BE8 0 CODE 0 text4 build/bin/button_event.o
+__ptext5 100E 0 CODE 0 text5 build/bin/button_event.o
+__ptext6 F3C 0 CODE 0 text6 build/bin/button_event.o
+__ptext7 F84 0 CODE 0 text7 build/bin/button_event.o
+__ptext8 802 0 CODE 0 text8 build/bin/button_event.o
+__ptext9 DE4 0 CODE 0 text9 build/bin/button_event.o
 __Lstruct 0 0 COMRAM 1 struct build/bin/button_event.o
 __Ltext10 0 0 ABS 0 text10 build/bin/button_event.o
 __Ltext11 0 0 ABS 0 text11 build/bin/button_event.o
 __Ltext12 0 0 ABS 0 text12 build/bin/button_event.o
 __Ltext13 0 0 ABS 0 text13 build/bin/button_event.o
 __Ltext14 0 0 ABS 0 text14 build/bin/button_event.o
+__Ltext15 0 0 ABS 0 text15 build/bin/button_event.o
 __Ltext16 0 0 ABS 0 text16 build/bin/button_event.o
 __Ltext17 0 0 ABS 0 text17 build/bin/button_event.o
+__Ltext18 0 0 ABS 0 text18 build/bin/button_event.o
+__Ltext19 0 0 ABS 0 text19 build/bin/button_event.o
+__Ltext20 0 0 ABS 0 text20 build/bin/button_event.o
+__Ltext21 0 0 ABS 0 text21 build/bin/button_event.o
+__Ltext22 0 0 ABS 0 text22 build/bin/button_event.o
+__Ltext24 0 0 ABS 0 text24 build/bin/button_event.o
+__Ltext25 0 0 ABS 0 text25 build/bin/button_event.o
 __ramtop 800 0 RAM 0 ramtop build/bin/startup.o
 __Lpowerup 0 0 CODE 0 powerup build/bin/button_event.o
 __Leeprom_data 0 0 EEDATA 0 eeprom_data build/bin/button_event.o
 __H__absolute__ 0 0 ABS 0 __absolute__ build/bin/button_event.o
 __psmallconst 800 0 SMALLCONST 0 smallconst build/bin/button_event.o
 __Lreset_vec 0 0 CODE 0 reset_vec build/bin/button_event.o
+button_init@gpio 61 0 BANK0 1 cstackBANK0 build/bin/button_event.o
 ___heap_hi 0 0 ABS 0 - build/bin/startup.o
 ___heap_lo 0 0 ABS 0 - build/bin/startup.o
 ___param_bank 0 0 ABS 0 - build/bin/button_event.o
 ___intlo_stack_hi 0 0 STACK 2 stack build/bin/startup.o
 ___intlo_stack_lo 0 0 STACK 2 stack build/bin/startup.o
 __Hbigdata 0 0 BIGRAM 1 bigdata build/bin/button_event.o
-__end_of__initialization B58 0 CODE 0 cinit build/bin/button_event.o
+__end_of__initialization D7C 0 CODE 0 cinit build/bin/button_event.o
+___awmod@divisor 46 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
 __Libigdata 0 0 CODE 0 ibigdata build/bin/button_event.o
-i2_timer0_reload D30 0 CODE 0 text16 build/bin/button_event.o
-led_set@state 52 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
-__pidataBANK0 D3A 0 CODE 0 idataBANK0 build/bin/button_event.o
+i2_timer0_reload 1114 0 CODE 0 text24 build/bin/button_event.o
+led_set@state 61 0 BANK0 1 cstackBANK0 build/bin/button_event.o
+__pidataBANK0 111E 0 CODE 0 idataBANK0 build/bin/button_event.o
 __Lclrtext 0 0 ABS 0 clrtext build/bin/button_event.o
-__pcstackCOMRAM 44 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
-scheduler_run@i 68 0 BANK0 1 cstackBANK0 build/bin/button_event.o
-__end_of_main AA0 0 CODE 0 text0 build/bin/button_event.o
+__pcstackCOMRAM 39 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
+event_push@ev 60 0 BANK0 1 cstackBANK0 build/bin/button_event.o
+scheduler_run@i 6A 0 BANK0 1 cstackBANK0 build/bin/button_event.o
+__end_of_main DE4 0 CODE 0 text0 build/bin/button_event.o
 __pintcode 8 0 CODE 0 intcode build/bin/button_event.o
+__end_of_event_pop 100E 0 CODE 0 text12 build/bin/button_event.o
+_PORTB F81 0 ABS 0 - build/bin/button_event.o
+_PORTD F83 0 ABS 0 - build/bin/button_event.o
 _T0CON FD5 0 ABS 0 - build/bin/button_event.o
 _TMR0H FD7 0 ABS 0 - build/bin/button_event.o
 _TMR0L FD6 0 ABS 0 - build/bin/button_event.o
@@ -559,25 +712,28 @@ __LRAM 1 0 ABS 0 - build/bin/button_event.o
 __Lbss 0 0 RAM 1 bss build/bin/button_event.o
 __Lram 0 0 ABS 0 ram build/bin/button_event.o
 __Lsfr 0 0 ABS 0 sfr build/bin/button_event.o
-_scheduler_init BC0 0 CODE 0 text8 build/bin/button_event.o
-_scheduler_tick 94A 0 CODE 0 text17 build/bin/button_event.o
+_scheduler_init E98 0 CODE 0 text14 build/bin/button_event.o
+_scheduler_tick B6C 0 CODE 0 text25 build/bin/button_event.o
+_queue 25 0 COMRAM 1 bssCOMRAM build/bin/button_event.o
+button_get_event@btn 44 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
 __HdataBANK0 0 0 ABS 0 dataBANK0 build/bin/button_event.o
+_button_get_event 10BC 0 CODE 0 text10 build/bin/button_event.o
 __Hsivt_hi 0 0 CODE 0 sivt_hi build/bin/button_event.o
 __Hsivt_lo 18 0 CODE 0 sivt_lo build/bin/button_event.o
-__initialization B0C 0 CODE 0 cinit build/bin/button_event.o
+__initialization D30 0 CODE 0 cinit build/bin/button_event.o
 btemp0 1 0 ABS 0 - build/bin/button_event.o
 btemp1 2 0 ABS 0 - build/bin/button_event.o
-gpio_write@gpio 4F 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
-gpio_init@gpio 4F 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
-__pdataCOMRAM 26 0 COMRAM 1 dataCOMRAM build/bin/button_event.o
+gpio_write@gpio 44 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
+gpio_init@gpio 44 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
+__pdataCOMRAM 4B 0 COMRAM 1 dataCOMRAM build/bin/button_event.o
 __Hfardata 0 0 FARRAM 0 fardata build/bin/button_event.o
+_event_pop FCC 0 CODE 0 text12 build/bin/button_event.o
 __Hsmallconst 802 0 SMALLCONST 0 smallconst build/bin/button_event.o
-__end_of_led_task0 D1A 0 CODE 0 text5 build/bin/button_event.o
-__end_of_led_task1 D26 0 CODE 0 text6 build/bin/button_event.o
-scheduler_add_task@task 4F 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
-_timer0_start D48 0 CODE 0 text1 build/bin/button_event.o
+button_update@state 62 0 BANK0 1 cstackBANK0 build/bin/button_event.o
+scheduler_add_task@task 44 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
+_timer0_start 112C 0 CODE 0 text1 build/bin/button_event.o
 __Lifardata 0 0 CODE 0 ifardata build/bin/button_event.o
-scheduler_add_task@period_ms 51 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
+scheduler_add_task@period_ms 46 0 COMRAM 1 cstackCOMRAM build/bin/button_event.o
 __Hintsave_regs 0 0 BIGRAM 1 intsave_regs build/bin/button_event.o
 __Hintcode E 0 CODE 0 intcode build/bin/button_event.o
 # %SPLITSTAB Section
@@ -605,9 +761,9 @@ __Hintcode E 0 CODE 0 intcode build/bin/button_event.o
 # and size are in units of delta. The file address is in units of bytes.
 # All other numeric quantities are in decimal.
 %SEGMENTS
-text12 0 802 802 53F 1
-text14 0 D42 D42 A 1
-cstackBANK0 1 60 60 10 1
+text8 0 802 802 923 1
+text16 0 1126 1126 A 1
+cstackBANK0 1 60 60 12 1
 reset_vec 0 0 0 4 1
 intcode 0 8 8 A 1
 smallconst 0 800 800 2 1

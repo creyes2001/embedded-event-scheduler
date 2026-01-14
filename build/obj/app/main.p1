@@ -14,23 +14,23 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _TRISB `Vuc ~T0 @X0 0 e@3987 ]
 "3071
 [v _LATB `Vuc ~T0 @X0 0 e@3978 ]
-"32 main.c
-[c E3367 0 1 .. ]
-[n E3367 . ACTIVE_LOW ACTIVE_HIGH  ]
-[c E3371 0 1 .. ]
-[n E3371 . LED_OFF LED_ON  ]
+"26 app/main.c
+[c E3399 0 1 .. ]
+[n E3399 . ACTIVE_LOW ACTIVE_HIGH  ]
+[c E3403 0 1 .. ]
+[n E3403 . LED_OFF LED_ON  ]
 "16 inc/led_driver.h
-[s S392 `*S391 1 `E3367 1 `E3371 1 ]
-[n S392 . gpio polarity state ]
-"43 main.c
-[c E3410 0 1 .. ]
-[n E3410 . BUTTON_ACTIVE_LOW BUTTON_ACTIVE_HIGH  ]
-[c E3414 0 1 .. ]
-[n E3414 . BUTTON_RELEASED BUTTON_PRESSED  ]
-[c E3418 0 1 2 .. ]
-[n E3418 . BUTTON_EVENT_NONE BUTTON_EVENT_PRESSED BUTTON_EVENT_RELEASED  ]
+[s S393 `*S391 1 `E3399 1 `E3403 1 ]
+[n S393 . gpio polarity state ]
+"31 app/main.c
+[c E3419 0 1 .. ]
+[n E3419 . BUTTON_ACTIVE_LOW BUTTON_ACTIVE_HIGH  ]
+[c E3423 0 1 .. ]
+[n E3423 . BUTTON_RELEASED BUTTON_PRESSED  ]
+[c E3427 0 1 2 .. ]
+[n E3427 . BUTTON_EVENT_NONE BUTTON_EVENT_PRESSED BUTTON_EVENT_RELEASED  ]
 "22 inc/button_driver.h
-[s S394 `*S391 1 `E3410 1 `E3414 1 `E3414 1 `uc 1 `uc 1 `E3418 1 ]
+[s S394 `*S391 1 `E3419 1 `E3423 1 `E3423 1 `uc 1 `uc 1 `E3427 1 ]
 [n S394 . gpio polarity state last_state debounce_cnt debounce_ticks event ]
 [t ~ __interrupt . k ]
 [t T36 __interrupt ]
@@ -52,27 +52,20 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _timer0_reload `(v ~T0 @X0 0 ef ]
 "17 inc/scheduler.h
 [v _scheduler_tick `(v ~T0 @X0 0 ef ]
-"24 inc/led_driver.h
-[v _led_toggle `(v ~T0 @X0 0 ef1`*S392 ]
 "36 inc/button_driver.h
 [v _button_update `(v ~T0 @X0 0 ef1`*S394 ]
 "37
-[v _button_get_event `(E3418 ~T0 @X0 0 ef1`*S394 ]
-"73 main.c
-[c E3441 0 1 2 .. ]
-[n E3441 . EVENT_NONE EVENT_BUTTON_PRESSED EVENT_BUTTON_RELEASED  ]
+[v _button_get_event `(E3427 ~T0 @X0 0 ef1`*S394 ]
+"52 app/main.c
+[c E3390 0 1 2 .. ]
+[n E3390 . EVENT_NONE EVENT_BUTTON_PRESSED EVENT_BUTTON_RELEASED  ]
 "13 inc/event.h
-[v _event_push `(uc ~T0 @X0 0 ef1`E3441 ]
+[v _event_push `(uc ~T0 @X0 0 ef1`E3390 ]
 [p mainexit ]
-"22 inc/led_driver.h
-[v _led_init `(v ~T0 @X0 0 ef1`*S392 ]
-"85 main.c
-[c E3349 0 1 .. ]
-[n E3349 . GPIO_OUTPUT GPIO_INPUT  ]
-"23 inc/gpio_driver.h
-[v _gpio_init `(v ~T0 @X0 0 ef2`*S391`E3349 ]
 "32 inc/button_driver.h
-[v _button_init `(v ~T0 @X0 0 ef4`*S394`*S391`E3410`uc ]
+[v _button_init `(v ~T0 @X0 0 ef4`*S394`*S391`E3419`uc ]
+"4 app/app.h
+[v _app_init `(v ~T0 @X0 0 ef ]
 "15 inc/scheduler.h
 [v _scheduler_init `(v ~T0 @X0 0 ef ]
 "6 inc/timer0.h
@@ -81,10 +74,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _timer0_start `(v ~T0 @X0 0 ef ]
 "4 inc/interrupts.h
 [v _enable_gi `(v ~T0 @X0 0 ef ]
-[v F3398 `(v ~T0 @X0 0 tf ]
+[v F3378 `(v ~T0 @X0 0 tf ]
 "16 inc/scheduler.h
-[v _scheduler_add_task `(v ~T0 @X0 0 ef2`*F3398`us ]
-"18
+[v _scheduler_add_task `(v ~T0 @X0 0 ef2`*F3378`us ]
+"5 app/app.h
+[v _app_task `(v ~T0 @X0 0 ef ]
+"18 inc/scheduler.h
 [v _scheduler_run `(v ~T0 @X0 0 ef ]
 "3 inc/config.h
 [p x PLLDIV  =  1        ]
@@ -458,9 +453,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; <" TOSH equ 0FFEh ;# ">
 "8891
 [; <" TOSU equ 0FFFh ;# ">
-"11 main.c
-[v _gpio_led0 `S391 ~T0 @X0 1 e ]
-[i _gpio_led0
+"12 app/main.c
+[v _gpio_led1 `S391 ~T0 @X0 1 e ]
+[i _gpio_led1
 :U ..
 :U ..
 &U _PORTD
@@ -470,21 +465,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-"18
-[v _gpio_led2 `S391 ~T0 @X0 1 e ]
-[i _gpio_led2
-:U ..
-:U ..
-&U _PORTD
-&U _TRISD
-&U _LATD
--> -> 2 `i `uc
-..
-..
-]
-"25
-[v _button `S391 ~T0 @X0 1 e ]
-[i _button
+"19
+[v _button1 `S391 ~T0 @X0 1 e ]
+[i _button1
 :U ..
 :U ..
 &U _PORTB
@@ -494,148 +477,112 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ..
 ]
-"32
-[v _led0 `S392 ~T0 @X0 1 e ]
-[i _led0
+"26
+[v _led1 `S393 ~T0 @X0 1 e ]
+[i _led1
 :U ..
 :U ..
-&U _gpio_led0
-. `E3367 1
+&U _gpio_led1
+. `E3399 1
 ..
 ..
 ]
-"38
-[v _led2 `S392 ~T0 @X0 1 e ]
-[i _led2
-:U ..
-:U ..
-&U _gpio_led2
-. `E3367 1
-..
-..
-]
-"43
-[v _btn0 `S394 ~T0 @X0 1 e ]
+"31
+[v _btn1 `S394 ~T0 @X0 1 e ]
 [v $root$_isr `(v ~T0 @X0 0 e ]
-"45
+"33
 [v _isr `(v ~T36 @X0 1 ef ]
-"46
+"34
 {
 [e :U _isr ]
 [f ]
-"47
+"35
 [e $ ! != -> . . _INTCONbits 0 2 `i -> 0 `i 396  ]
-"48
+"36
 {
-"49
+"37
 [e ( _timer0_reload ..  ]
-"50
+"38
 [e ( _scheduler_tick ..  ]
-"51
+"39
 [e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
-"52
+"40
 }
 [e :U 396 ]
-"53
+"41
 [e :UE 395 ]
 }
-"55
-[v _led_task0 `(v ~T0 @X0 1 ef ]
-"56
-{
-[e :U _led_task0 ]
-[f ]
-"57
-[e ( _led_toggle (1 &U _led0 ]
-"58
-[e :UE 397 ]
-}
-"60
-[v _led_task1 `(v ~T0 @X0 1 ef ]
-"61
-{
-[e :U _led_task1 ]
-[f ]
-"62
-[e ( _led_toggle (1 &U _led2 ]
-"63
-[e :UE 398 ]
-}
-"65
+"44
 [v _button_task `(v ~T0 @X0 1 ef ]
-"66
+"45
 {
 [e :U _button_task ]
 [f ]
-"67
-[e ( _button_update (1 &U _btn0 ]
-"69
-[v _bev `E3418 ~T0 @X0 1 a ]
-[e = _bev ( _button_get_event (1 &U _btn0 ]
-"71
-[e $ ! == -> _bev `ui -> . `E3418 1 `ui 400  ]
-"72
+"46
+[e ( _button_update (1 &U _btn1 ]
+"48
+[v _bev `E3427 ~T0 @X0 1 a ]
+[e = _bev ( _button_get_event (1 &U _btn1 ]
+"50
+[e $ ! == -> _bev `ui -> . `E3427 1 `ui 398  ]
+"51
 {
-"73
-[e ( _event_push (1 . `E3441 1 ]
-"74
+"52
+[e ( _event_push (1 . `E3390 1 ]
+"53
 }
-[e $U 401  ]
-"75
+[e $U 399  ]
+"54
+[e :U 398 ]
+[e $ ! == -> _bev `ui -> . `E3427 2 `ui 400  ]
+"55
+{
+"56
+[e ( _event_push (1 . `E3390 2 ]
+"57
+}
 [e :U 400 ]
-[e $ ! == -> _bev `ui -> . `E3418 2 `ui 402  ]
-"76
-{
-"77
-[e ( _event_push (1 . `E3441 2 ]
-"78
-}
-[e :U 402 ]
-[e :U 401 ]
-"79
-[e :UE 399 ]
+[e :U 399 ]
+"58
+[e :UE 397 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"81
+"60
 [v _main `(i ~T0 @X0 1 ef ]
-"82
+"61
 {
 [e :U _main ]
 [f ]
-"83
-[e ( _led_init (1 &U _led0 ]
-"84
-[e ( _led_init (1 &U _led2 ]
-"85
-[e ( _gpio_init (2 , &U _button . `E3349 1 ]
-"86
-[e ( _button_init (4 , , , &U _btn0 &U _button . `E3410 1 -> -> 3 `i `uc ]
-"88
+"62
+[e ( _button_init (4 , , , &U _btn1 &U _button1 . `E3419 0 -> -> 3 `i `uc ]
+"63
+[e ( _app_init ..  ]
+"64
 [e ( _scheduler_init ..  ]
-"89
+"65
 [e ( _timer0_init ..  ]
-"90
+"66
 [e ( _timer0_start ..  ]
-"92
+"68
 [e ( _enable_gi ..  ]
-"94
-[e ( _scheduler_add_task (2 , &U _led_task0 -> -> 500 `i `us ]
-"95
-[e ( _scheduler_add_task (2 , &U _led_task1 -> -> 200 `i `us ]
-"96
-[e :U 405 ]
-"97
+"70
+[e ( _scheduler_add_task (2 , &U _button_task -> -> 10 `i `us ]
+"71
+[e ( _scheduler_add_task (2 , &U _app_task -> -> 5 `i `us ]
+"72
+[e :U 403 ]
+"73
 {
-"98
+"74
 [e ( _scheduler_run ..  ]
-"99
+"75
 }
+[e :U 402 ]
+[e $U 403  ]
 [e :U 404 ]
-[e $U 405  ]
-[e :U 406 ]
-"100
+"76
 [e ) -> 1 `i ]
-[e $UE 403  ]
-"101
-[e :UE 403 ]
+[e $UE 401  ]
+"77
+[e :UE 401 ]
 }

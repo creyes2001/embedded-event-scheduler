@@ -2,7 +2,7 @@
 
 #define EVENT_QUEUE_SIZE 10
 
-static volatile event_t queue[EVENT_QUEUE_SIZE];
+static volatile event_e queue[EVENT_QUEUE_SIZE];
 static volatile uint8_t head; 
 static volatile uint8_t tail;
 
@@ -25,14 +25,14 @@ uint8_t event_push(event_e ev)
 	return 1;
 }
 
-event_t event_pop(void)
+event_e event_pop(void)
 {
 	if(head == tail)
 	{
-		return EVENT_NONE;
+		return EVENT_NONE; //queue empty
 	}
 
-	event_t ev = queue[tail];
+	event_e ev = queue[tail];
 	tail = (tail + 1) % EVENT_QUEUE_SIZE;
 	return ev;
 }
